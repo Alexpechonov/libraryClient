@@ -1,14 +1,10 @@
-<!--<router-outlet></router-outlet>-->
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Library of instructions</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a *ngIf="isLogged()" (click)="auth.login()">Login</a></li>
-      <li><a *ngIf="!isLogged()" (click)="auth.logout()">Logout</a></li>
-      <li><a *ngIf="!isLogged()" (click)="getMe()">Get Me</a></li>
-    </ul>
-  </div>
-</nav>
+<header>
+  <common-nav></common-nav>
+</header>
+<router-outlet></router-outlet>
+
+
+
 
 
 

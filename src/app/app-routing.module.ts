@@ -5,9 +5,8 @@ import {APP_BASE_HREF} from "@angular/common";
 import {AppComponent} from "./app.component";
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
 
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: 'Error'}
 ];
 
 @NgModule({

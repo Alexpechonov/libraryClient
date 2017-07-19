@@ -1,9 +1,10 @@
-import {Injectable} from "@angular/core";
+import {Injectable, EventEmitter} from "@angular/core";
 import {User} from "../entities/user";
 import "rxjs/add/operator/map";
 import {Http, Response} from "@angular/http";
 import {AppSettings} from "./endpoint";
-import {AuthHttp} from "angular2-jwt";
+import {AuthHttp, JwtHelper} from "angular2-jwt";
+import {AuthService} from "./auth.service";
 
 declare var $: any;
 
@@ -12,13 +13,24 @@ const webServiceEndpoint = AppSettings.webServiceEndpoint;
 @Injectable()
 export class UserService {
   private user: User = new User();
+  authData: EventEmitter<User> = new EventEmitter();
 
   constructor(private http: Http,
               private authHttp: AuthHttp) {
+    if (this.loggedIn()) {
+      this.getCurrentUser().subscribe(
+        data => {
+          this.user = data;
+          this.authData.emit(this.user);
+        }
+      );
+    }
   }
 
   updateAuthUser(user: User) {
     this.user = user;
+    let newUser = this.getAuthUser();
+    this.authData.emit(newUser);
   }
 
   getAuthUser(): User {
@@ -40,13 +52,13 @@ export class UserService {
   }
 
   login() {
-    return this.http.post(`${webServiceEndpoint}/user/login`, this.user)
-      .map((response: Response) => response);
+    return this.http.post(`${webServiceEndpoint}/user/login`, this.user).map((response: Response) => response);
   }
 
   getCurrentUser() {
     return this.authHttp.get(`${webServiceEndpoint}/user/me`).map((response: Response) => response.json());
   }
+
 
   createNewUser(profile) {
     switch (profile.identities["0"].provider) {
@@ -61,6 +73,9 @@ export class UserService {
     }
     this.login().subscribe(data => {
       localStorage.setItem('token', data.text());
+      this.getCurrentUser().subscribe(data => {
+        this.updateAuthUser(data);
+      })
     });
   }
 
@@ -77,6 +92,11 @@ export class UserService {
     this.user.identity = profile.identities["0"].user_id;
     this.user.image = profile.picture;
     this.user.userName = profile.user_id;
+  }
+
+  loggedIn(): boolean {
+    let jwt: JwtHelper = new JwtHelper();
+    return localStorage.getItem('token') !== null && !jwt.isTokenExpired(localStorage.getItem('token'));
   }
 }
 

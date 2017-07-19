@@ -1,0 +1,75 @@
+<div class="main transitionable row">
+  <div class="col s8 m9 l4">
+    <div class="logo">
+      <a [routerLink]="['home']"><h1 class="instructions-logo">Instructions</h1></a>
+    </div>
+  </div>
+  <div class="col s5 hide-on-med-and-down ">
+    <div class="row" style="margin-top: 15px">
+      <div class="col s12">
+        <div class="row contacts">
+          <div class="col s6">
+            <img height="19px" src="/assets/logo/velcom.png">
+            <span>+375447870868</span>
+          </div>
+          <div class="col s6">
+            <img height="22px" src="/assets/logo/mts.png">
+            <span>+375447870868</span>
+          </div>
+        </div>
+        <div class="row contacts">
+          <div class="col s6">
+            <img height="16px" src="/assets/logo/life_logo.png">
+            <span>+375447870868</span>
+          </div>
+          <div class="col s6">
+            <img height="22px" src="/assets/logo/skype.png">
+            <span>alexpechonov</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s2" style="margin-top: 30px">
+    <img id="language" style="width: 40px; cursor: pointer" class='dropdown-button' data-activates='language_dropdown'
+         src="/assets/i18n/ru.png">
+    <ul id='language_dropdown' class='dropdown-content'>
+      <li id="ru-lan"><img (click)="changeLanguage('ru')" style="width: 40px;" src="/assets/i18n/ru.png"></li>
+      <li id="en-lan"><img (click)="changeLanguage('en')" style="width: 40px;" src="/assets/i18n/en.png"></li>
+    </ul>
+  </div>
+</div>
+
+<!--Collapse button -->
+<a style="color: gray" id="collapse-menu" href="#" data-activates="mobile-slide" class="button-collapse"><i
+  class="small material-icons">menu</i></a>
+<!--Content for mobile and medium screens-->
+<div>
+  <ul class="side-nav leftside-navigation ps-container ps-active-y" id="mobile-slide">
+    <li class="hoverable" *ngIf="isLoggedIn">
+      <div class="userView">
+        <div class="background">
+          <img src="assets/img/user-profile-bg.jpg">
+          <img src={{user.image}}>
+        </div>
+        <a [routerLink]="['profile']">
+          <img src={{user.image}} height="64" width="64" crop="fill">
+
+        </a>
+        <a [routerLink]="['profile']">
+          {{user.firstName}} {{user.lastName}}
+        </a>
+      </div>
+    </li>
+    <!--login-->
+    <li class="hoverable" *ngIf="!isLoggedIn"><a (click)="login()">{{"LOGIN" | translate}}</a></li>
+    <!--logout (should be the last!)-->
+
+    <!--test collapsible via category-->
+    <li class="hoverable">
+      <a [routerLink]="['cart']">{{"CART" | translate}}</a>
+    </li>
+    <!--logout (should be the last!)-->
+    <li class="hoverable" [hidden]="!isLoggedIn"><a (click)="logout()">{{"LOGOUT" | translate}}</a></li>
+  </ul>
+</div>

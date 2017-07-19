@@ -1,33 +1,18 @@
-import {Component} from '@angular/core';
-import {AuthService} from "./services/auth.service";
-import {UserService} from "./services/user.service";
+import {Component, OnInit} from '@angular/core';
+import {NgSpinningPreloader} from "./components/common/preloader/ng-spinning-preloader.service";
+
+declare var $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-
-  constructor(private auth: AuthService,
-              private userService: UserService) {
+export class AppComponent implements OnInit{
+  ngOnInit(): void {
+    this.ngSpinningPreloader.stop();
   }
 
-  login() {
-    this.auth.login();
-  }
-
-  logout() {
-    this.auth.logout();
-  }
-
-  getMe() {
-    this.userService.getCurrentUser().subscribe(data => {
-      console.log(data);
-    });
-  }
-
-  isLogged() {
-    return (localStorage.getItem('token') === null);
+  constructor(private ngSpinningPreloader: NgSpinningPreloader) {
   }
 }
