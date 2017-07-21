@@ -1,0 +1,27 @@
+section#container {
+  width: 98%;
+  margin: auto;
+}
+
+img#profile-background {
+  height: 200px;
+}
+
+figure.card-profile-image {
+  width: 110px;
+  position: absolute;
+  top: 35px;
+  z-index: 1;
+  left: 40px;
+  cursor: pointer;
+  margin: 0;
+}
+
+div.file-field.input-field {
+  position: absolute;
+  top: 140px;
+  z-index: 1;
+  left: 210px;
+  cursor: pointer;
+  margin: 0;
+}

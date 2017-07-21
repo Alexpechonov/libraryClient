@@ -15,6 +15,11 @@ import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {NgSpinningPreloader} from "./components/common/preloader/ng-spinning-preloader.service";
 import {NavigationComponent} from "./components/common/navigation/navigation.component";
+import {HomeComponent} from "./components/home/home.component";
+import {ProfileComponent} from "./components/user/profile/profile.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {Ng2CloudinaryModule} from "ng2-cloudinary";
+import {FileUploadModule} from "ng2-file-upload";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -24,7 +29,9 @@ export function HttpLoaderFactory(http: Http) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +40,8 @@ export function HttpLoaderFactory(http: Http) {
     FormsModule,
     HttpModule,
     MaterializeModule,
+    Ng2CloudinaryModule,
+    FileUploadModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -49,7 +58,8 @@ export function HttpLoaderFactory(http: Http) {
       deps: [Http, RequestOptions]
     },
     AuthService,
-    NgSpinningPreloader
+    NgSpinningPreloader,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

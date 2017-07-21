@@ -1,4 +1,8 @@
 {
   "LOGIN": "Login",
-  "LOGOUT": "Logout"
+  "LOGOUT": "Logout",
+  "FIRSTNAME": "First Name",
+  "LASTNAME": "Last Name",
+  "ABOUT": "About",
+  "NEWIMAGE": "New image"
 }

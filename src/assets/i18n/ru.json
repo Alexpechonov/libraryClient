@@ -1,4 +1,8 @@
 {
   "LOGIN": "Авторизация",
-  "LOGOUT": "Выход"
+  "LOGOUT": "Выход",
+  "FIRSTNAME": "Имя",
+  "LASTNAME": "Фамилия",
+  "ABOUT": "Обо мне",
+  "NEWIMAGE": "Новая ава"
 }

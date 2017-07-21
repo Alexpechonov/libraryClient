@@ -50,11 +50,10 @@
       <div class="userView">
         <div class="background">
           <img src="assets/img/user-profile-bg.jpg">
-          <img src={{user.image}}>
         </div>
         <a [routerLink]="['profile']">
-          <img src={{user.image}} height="64" width="64" crop="fill">
-
+          <cl-image public-id="{{user.image}}" cloud-name="libraryofinstructions" width="100" height="100"
+                    gravity="face" crop="thumb"></cl-image>
         </a>
         <a [routerLink]="['profile']">
           {{user.firstName}} {{user.lastName}}

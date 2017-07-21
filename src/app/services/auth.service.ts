@@ -1,6 +1,7 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {JwtHelper} from "angular2-jwt";
 import {UserService} from "./user.service";
+import {Router} from "@angular/router";
 
 declare var Auth0Lock: any;
 
@@ -9,7 +10,8 @@ export class AuthService {
 
   isLoggedIn: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService,
+              private router: Router){}
 
   lock = new Auth0Lock('z63226aYIXnSrzdbGI5frulYlrKwM2pE', 'alexpechonov.eu.auth0.com');
 
@@ -30,16 +32,12 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('token');
     this.isLoggedIn.emit(false);
+    this.router.navigate(['/']);
   }
 
   isAdmin(): boolean {
     if (this.loggedIn()) {
-    //   let token = localStorage.getItem('token');
-    //   let jwtHelper: JwtHelper = new JwtHelper();
-    //   let isAdmin = jwtHelper.decodeToken(token).scopes[0] == 'ROLE_ADMIN';
-    //   if (isAdmin) {
-    //     return true;
-    //   }
+      return (this.userService.getAuthUser().role == "ROLE_ADMIN");
     }
     return false;
   }
