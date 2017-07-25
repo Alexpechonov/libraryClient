@@ -52,10 +52,10 @@
           <img src="assets/img/user-profile-bg.jpg">
         </div>
         <a [routerLink]="['profile']">
-          <cl-image public-id="{{user.image}}" cloud-name="libraryofinstructions" width="100" height="100"
+          <cl-image public-id="{{user.image}}" cloud-name="libraryofinstructions" width="150" height="150"
                     gravity="face" crop="thumb"></cl-image>
         </a>
-        <a [routerLink]="['profile']">
+        <a id="name" [routerLink]="['profile']">
           {{user.firstName}} {{user.lastName}}
         </a>
       </div>
@@ -64,10 +64,6 @@
     <li class="hoverable" *ngIf="!isLoggedIn"><a (click)="login()">{{"LOGIN" | translate}}</a></li>
     <!--logout (should be the last!)-->
 
-    <!--test collapsible via category-->
-    <li class="hoverable">
-      <a [routerLink]="['cart']">{{"CART" | translate}}</a>
-    </li>
     <!--logout (should be the last!)-->
     <li class="hoverable" [hidden]="!isLoggedIn"><a (click)="logout()">{{"LOGOUT" | translate}}</a></li>
   </ul>

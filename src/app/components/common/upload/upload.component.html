@@ -1,0 +1,15 @@
+<cl-image public-id="{{part.data}}" width="700"
+          [cloud-name]="uploader.cloudName">
+</cl-image>
+<div class="file-field input-field">
+  <div class="btn" hidden="hidden">
+    <span>{{"NEWPARTIMAGE" | translate}}</span>
+    <input [disabled]="uploader.isUploading" type="file" accept="image/*" ng2FileSelect [uploader]="uploader">
+  </div>
+  <div class="file-path-wrapper">
+    <input class="file-path validate" type="text" placeholder='{{"IMAGE_PLACEHOLDER" | translate}}'>
+  </div>
+</div>
+<div class="progress" *ngIf="uploaded">
+  <div class="indeterminate"></div>
+</div>

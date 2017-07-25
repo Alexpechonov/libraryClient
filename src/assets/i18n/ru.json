@@ -1,8 +1,22 @@
 {
   "LOGIN": "Авторизация",
   "LOGOUT": "Выход",
+  "DELETE": "Удалить",
   "FIRSTNAME": "Имя",
   "LASTNAME": "Фамилия",
   "ABOUT": "Обо мне",
-  "NEWIMAGE": "Новая ава"
+  "NEWIMAGE": "Новая ава",
+  "CREATEINSTRUCTION": "Создать инструкцию",
+  "INSTRUCTIONTITLE": "Название инструкции",
+  "NEWPARTIMAGE": "Загрузить изображение",
+  "IMAGE_PLACEHOLDER": "Так же можно нажать или перетащить изображение сюда",
+  "STEP_NAME": "Название шага",
+  "CREATE_NEW_TEXT": "Добавить блок текста",
+  "CREATE_NEW_IMAGE": "Добавить блок с картинкой",
+  "CREATE_NEW_VIDEO": "Добавить блок с видео",
+  "CREATE_NEW_STEP": "Добавить новый шаг",
+  "VIDEO_LINK": "Идендитификатор видео youtube",
+  "TEXT": "Место для текста",
+  "CREATE_NEW_INSTRUCTION": "Новая инструкция",
+  "TAGS": "Тэги"
 }

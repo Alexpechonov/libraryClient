@@ -2,11 +2,14 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {JwtHelper} from "angular2-jwt";
 import {UserService} from "./user.service";
 import {Router} from "@angular/router";
+import {User} from "../entities/user";
 
 declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
+
+  user: User = new User();
 
   isLoggedIn: EventEmitter<boolean> = new EventEmitter();
 
@@ -22,8 +25,7 @@ export class AuthService {
       }
       localStorage.setItem('profile', JSON.stringify(profile));
       localStorage.setItem('id_token', id_token);
-      this.userService.createNewUser(profile);
-      this.isLoggedIn.emit(true);
+      this.createNewUser(profile);
     });
   }
 
@@ -45,5 +47,40 @@ export class AuthService {
   loggedIn(): boolean {
     let jwt: JwtHelper = new JwtHelper();
     return localStorage.getItem('token') !== null && !jwt.isTokenExpired(localStorage.getItem('token'));
+  }
+
+  createNewUser(profile) {
+    switch (profile.identities["0"].provider) {
+      case 'twitter':
+        this.parseTwitterData(profile);
+        break;
+      case 'vkontakte':
+        this.parseVkontakteData(profile);
+        break;
+      default:
+        alert("Unknown provider");
+    }
+    this.user.image = "sample";
+    this.userService.updateAuthUser(this.user);
+    this.userService.login().subscribe(data => {
+      localStorage.setItem('token', data.text());
+      this.userService.getCurrentUser().subscribe(data => {
+        this.userService.updateAuthUser(data);
+        this.isLoggedIn.emit(true);
+      })
+    });
+  }
+
+  parseTwitterData(profile) {
+    [this.user.firstName, this.user.lastName] = profile.name.split(" ");
+    this.user.identity = profile.identities["0"].user_id;
+    this.user.userName = profile.user_id;
+  }
+
+  parseVkontakteData(profile) {
+    this.user.firstName = profile.given_name;
+    this.user.lastName = profile.family_name;
+    this.user.identity = profile.identities["0"].user_id;
+    this.user.userName = profile.user_id;
   }
 }

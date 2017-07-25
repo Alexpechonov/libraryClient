@@ -20,6 +20,15 @@ import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {Ng2CloudinaryModule} from "ng2-cloudinary";
 import {FileUploadModule} from "ng2-file-upload";
+import {TagService} from "./services/tag.service";
+import {PageNotFound} from "./components/common/error/404/404";
+import {InstructionService} from "./services/instruction.service";
+import {InstructionUpdateComponent} from "./components/instruction/update/instruction.update.component";
+import {DndModule} from "ng2-dnd";
+import {ImageUploadComponent} from "./components/common/upload/upload.component";
+import {InstructionWatchComponent} from "./components/instruction/watch/instruction.watch.component";
+import {PartService} from "./services/part.service";
+import {YoutubePlayerModule} from "ng2-youtube-player";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -31,10 +40,16 @@ export function HttpLoaderFactory(http: Http) {
     AppComponent,
     NavigationComponent,
     HomeComponent,
-    ProfileComponent
+    PageNotFound,
+    ProfileComponent,
+    InstructionUpdateComponent,
+    InstructionWatchComponent,
+    ImageUploadComponent
   ],
   imports: [
+    DndModule.forRoot(),
     BrowserModule,
+    YoutubePlayerModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
@@ -58,6 +73,9 @@ export function HttpLoaderFactory(http: Http) {
       deps: [Http, RequestOptions]
     },
     AuthService,
+    TagService,
+    InstructionService,
+    PartService,
     NgSpinningPreloader,
     AuthGuard,
   ],

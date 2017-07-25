@@ -5,14 +5,21 @@ import {APP_BASE_HREF} from "@angular/common";
 import {HomeComponent} from "./components/home/home.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {PageNotFound} from "./components/common/error/404/404";
+import {InstructionUpdateComponent} from "./components/instruction/update/instruction.update.component";
+import {InstructionWatchComponent} from "./components/instruction/watch/instruction.watch.component";
 
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: '404', component: PageNotFound},
+  {path: 'instruction/update/:id', component: InstructionUpdateComponent, canActivate: [AuthGuard]},
+  {path: 'instruction/watch/:id', component: InstructionWatchComponent},
+
 
   {path: 'home', redirectTo:''},
-  {path: '**', redirectTo: 'Error'}
+  {path: '**', redirectTo: '404'}
 ];
 
 @NgModule({

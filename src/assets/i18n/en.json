@@ -1,8 +1,22 @@
 {
   "LOGIN": "Login",
   "LOGOUT": "Logout",
+  "DELETE": "Delete",
   "FIRSTNAME": "First Name",
   "LASTNAME": "Last Name",
   "ABOUT": "About",
-  "NEWIMAGE": "New image"
+  "NEWIMAGE": "New image",
+  "CREATEINSTRUCTION": "Create instruction",
+  "INSTRUCTIONTITLE": "Instruction title",
+  "NEWPARTIMAGE": "Upload image",
+  "IMAGE_PLACEHOLDER": "You can also tap or drag$drop here",
+  "STEP_NAME": "Step name",
+  "CREATE_NEW_TEXT": "Create new text",
+  "CREATE_NEW_IMAGE": "Create new image",
+  "CREATE_NEW_VIDEO": "Create new video",
+  "CREATE_NEW_STEP": "Create new step",
+  "VIDEO_LINK": "Youtube video identity",
+  "TEXT": "Space for typing something",
+  "CREATE_NEW_INSTRUCTION": "Create new instruction",
+  "TAGS": "Tags"
 }

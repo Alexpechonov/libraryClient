@@ -11,6 +11,14 @@
   color: black;
 }
 
+a#name {
+  color: #000000;
+}
+
+cl-image {
+  display: flex;
+}
+
 .instructions-logo {
   color: #00aeef !important;
   font-family: 'Roboto', sans-serif !important;

@@ -1,0 +1,8 @@
+div.collapsible-header {
+  text-align: center;
+}
+
+a#delete_step {
+  top: 24px;
+  right: -7px;
+}

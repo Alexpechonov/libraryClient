@@ -8,7 +8,6 @@
         <figure class="circle card-profile-image">
           <cl-image width="150" height="150" gravity="face" crop="thumb" class="circle" public-id="{{user.image}}"
                     [cloud-name]="uploader.cloudName">
-            <input type="file" accept="image/*" ng2FileSelect [uploader]="uploader">
           </cl-image>
         </figure>
         <div class="file-field input-field">
@@ -27,27 +26,41 @@
         </div>
       </div>
       <div id="profile-page-content" class="row">
-        <div id="profile-page-wall" class="col s12 m8">
-          <div class="input-field">
-            <input placeholder="{{user.firstName}}" id="first_name" type="text" class="validate" name="firstName"
-                   [(ngModel)]="user.firstName"
-                   (change)="updateUser()">
-            <label for="first_name">{{"FIRSTNAME" | translate}}</label>
+        <div id="user_data">
+          <div id="profile-page-wall" class="col s12 m8">
+            <div class="input-field">
+              <input placeholder="{{user.firstName}}" id="first_name" type="text" class="validate" name="firstName"
+                     [(ngModel)]="user.firstName"
+                     (change)="updateUser()">
+              <label for="first_name">{{"FIRSTNAME" | translate}}</label>
+            </div>
+            <div class="input-field">
+              <input placeholder="{{user.lastName}}" id="last_name" type="text" class="validate" name="lastName"
+                     [(ngModel)]="user.lastName"
+                     (change)="updateUser()">
+              <label for="last_name">{{"LASTNAME" | translate}}</label>
+            </div>
           </div>
-          <div class="input-field">
-            <input placeholder="{{user.lastName}}" id="last_name" type="text" class="validate" name="lastName"
-                   [(ngModel)]="user.lastName"
-                   (change)="updateUser()">
-            <label for="last_name">{{"LASTNAME" | translate}}</label>
-          </div>
-        </div>
-        <div id="profile-page-sidebar" class="col s12 m4">
-          <div class="input-field col s12">
+          <div id="profile-page-sidebar" class="col s12 m4">
+            <div class="input-field col s12">
             <textarea placeholder="{{user.about}}" id="about" class="materialize-textarea validate" type="text"
+                      maxlength="500"
                       name="about"
                       [(ngModel)]="user.about"
                       (change)="updateUser()"></textarea>
-            <label for="about">{{"ABOUT" | translate}}</label>
+              <label for="about">{{"ABOUT" | translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div id="instructions">
+          <div class="collection">
+            <li *ngFor="let instruction of instructions">
+              <a [routerLink]="['../instruction/update',instruction.id]" class="collection-item">{{instruction.name}}</a>
+            </li>
+          </div>
+          <div class="center">
+            <a class="waves-effect waves-light btn center-align" (click)="createNewInstruction()">{{"CREATE_NEW_INSTRUCTION" |
+              translate}}</a>
           </div>
         </div>
       </div>
