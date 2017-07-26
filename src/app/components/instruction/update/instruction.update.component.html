@@ -14,8 +14,8 @@
           <div class="chips chips-initial chips-autocomplete"></div>
         </div>
       </div>
-      <ul class="collapsible popout" data-collapsible="expandable">
-        <li *ngFor="let step of this.instruction.steps">
+      <ul id="steps" class="collapsible popout" data-collapsible="accordion">
+        <li *ngFor="let step of this.instruction.steps; let i = index" id="{{i}}">
           <div class="collapsible-header">
             <div class="input-field" style="width: 100%;">
               <div class="row">
@@ -36,7 +36,7 @@
                             class="materialize-textarea validate col s12 m11" name="part.data"
                             [(ngModel)]="part.data" (change)="updateInstruction()"></textarea>
 
-                  <image-upload *ngIf="part.type == 'TYPE_IMAGE'" [part]="part" [instructionId]="instruction.id"
+                  <image-upload *ngIf="part.type == 'TYPE_IMAGE'" [part]="part" (onChange)="updateInstruction()"
                                 class="center col s12 m11"></image-upload>
 
                   <input *ngIf="part.type == 'TYPE_VIDEO'" placeholder='{{"VIDEO_LINK" | translate}}' type="text"

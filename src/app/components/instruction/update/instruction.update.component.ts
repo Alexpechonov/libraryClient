@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnChanges, SimpleChanges} from "@angular/core";
 import {InstructionService} from "../../../services/instruction.service";
 import {Instruction} from "../../../entities/instruction";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -126,10 +126,12 @@ export class InstructionUpdateComponent implements OnInit {
 
   updateInstruction() {
     this.beforeUpdate();
+    let activeSteps = $('#steps li.active');
+    // $.cookie('activeAccordionGroup', activeSteps);
     this.instructionService.update(this.instruction).subscribe(data => {
       this.instruction = data;
-      this.loadTags();
     });
+
   }
 
   beforeUpdate() {

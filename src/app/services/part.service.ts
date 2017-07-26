@@ -12,7 +12,4 @@ export class PartService {
 
   constructor(private authHttp: AuthHttp) {}
 
-  update(part: Part, instructionId: number) {
-    return this.authHttp.put(`${protectedServiceEndpoint}/part/${instructionId}`, part).map((response: Response) => response.json());
-  }
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {CloudinaryUploader, CloudinaryOptions} from "ng2-cloudinary";
 import {PartService} from "../../../services/part.service";
 import {Part} from "../../../entities/part";
@@ -9,7 +9,7 @@ import {Part} from "../../../entities/part";
 })
 export class ImageUploadComponent {
   @Input() public part: Part;
-  @Input() public instructionId: number;
+  @Output() onChange: EventEmitter<boolean> = new EventEmitter();
 
   public uploaded: boolean = false;
 
@@ -18,7 +18,7 @@ export class ImageUploadComponent {
     uploadPreset: 'qrejk1xv'
   }));
 
-  constructor(private partService: PartService) {
+  constructor() {
     this.uploader.onAfterAddingFile = (item: any) => {
       this.uploader.uploadAll();
       this.uploaded = true;
@@ -29,12 +29,8 @@ export class ImageUploadComponent {
       let res: any = JSON.parse(response);
       this.uploaded = false;
       this.part.data = res.public_id;
-      this.uploadPart();
+      this.onChange.emit(true)
       return { item, response, status, headers };
     };
-  }
-
-  uploadPart() {
-    this.partService.update(this.part, this.instructionId).subscribe();
   }
 }
