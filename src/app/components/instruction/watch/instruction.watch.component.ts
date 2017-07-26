@@ -3,6 +3,7 @@ import {Instruction} from "../../../entities/instruction";
 import {Router, ActivatedRoute} from "@angular/router";
 import {InstructionService} from "../../../services/instruction.service";
 import { DomSanitizer} from '@angular/platform-browser';
+import {Part} from "../../../entities/part";
 
 declare var $: any;
 
@@ -38,8 +39,13 @@ export class InstructionWatchComponent {
     });
   }
 
+  addFilter(filter: string, part: Part) {
+    let image = part.data.split("/").pop();
+    part.data = filter + "/" + image;
+  }
+
   makeLinkToImg(img: string) {
-    return "http://res.cloudinary.com/libraryofinstructions/image/upload/v1501006952/" + img;
+    return "http://res.cloudinary.com/libraryofinstructions/image/upload/" + img;
   }
 
 }

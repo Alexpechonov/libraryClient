@@ -29,6 +29,7 @@ import {ImageUploadComponent} from "./components/common/upload/upload.component"
 import {InstructionWatchComponent} from "./components/instruction/watch/instruction.watch.component";
 import {PartService} from "./services/part.service";
 import {YoutubePlayerModule} from "ng2-youtube-player";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: Http) {
   ],
   imports: [
     DndModule.forRoot(),
+    NgxPaginationModule,
     BrowserModule,
     YoutubePlayerModule,
     CommonModule,

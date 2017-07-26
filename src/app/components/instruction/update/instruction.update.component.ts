@@ -1,10 +1,9 @@
-import {Component, OnInit, OnChanges, SimpleChanges} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {InstructionService} from "../../../services/instruction.service";
 import {Instruction} from "../../../entities/instruction";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Part} from "../../../entities/part";
 import {Step} from "../../../entities/step";
-import {CloudinaryUploader, CloudinaryOptions} from "ng2-cloudinary";
 import {TagService} from "../../../services/tag.service";
 import {Tag} from "../../../entities/tag";
 
@@ -20,15 +19,8 @@ export class InstructionUpdateComponent implements OnInit {
   private instruction: Instruction = new Instruction();
   private tags: Tag[] = [];
 
-  uploader: CloudinaryUploader = new CloudinaryUploader(new CloudinaryOptions({
-    cloudName: 'libraryofinstructions',
-    uploadPreset: 'qrejk1xv'
-  }));
-
   ngOnInit() {
     this.loadTags();
-    this.configureCollapsable();
-    this.configureUploader();
     this.takeParamFromRoute();
   }
 
@@ -71,25 +63,6 @@ export class InstructionUpdateComponent implements OnInit {
     });
   }
 
-  configureUploader() {
-    this.uploader.onAfterAddingFile = (item: any) => {
-      this.uploader.uploadAll();
-      return item;
-    };
-
-    this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-      let res: any = JSON.parse(response);
-      // this.user.image = res.public_id;
-      return {item, response, status, headers};
-    }
-  }
-
-  configureCollapsable() {
-    $(document).ready(function () {
-      $(".collapsible").collapsible();
-    });
-  }
-
   loadTags() {
     this.tagService.getAll().subscribe(data => {
       this.tags = data;
@@ -126,8 +99,6 @@ export class InstructionUpdateComponent implements OnInit {
 
   updateInstruction() {
     this.beforeUpdate();
-    let activeSteps = $('#steps li.active');
-    // $.cookie('activeAccordionGroup', activeSteps);
     this.instructionService.update(this.instruction).subscribe(data => {
       this.instruction = data;
     });
