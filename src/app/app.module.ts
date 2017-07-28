@@ -30,6 +30,7 @@ import {InstructionWatchComponent} from "./components/instruction/watch/instruct
 import {PartService} from "./services/part.service";
 import {YoutubePlayerModule} from "ng2-youtube-player";
 import {NgxPaginationModule} from "ngx-pagination";
+import {MarkdownModule} from "angular2-markdown";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: Http) {
   ],
   imports: [
     DndModule.forRoot(),
+    MarkdownModule.forRoot(),
     NgxPaginationModule,
     BrowserModule,
     YoutubePlayerModule,

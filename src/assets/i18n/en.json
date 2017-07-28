@@ -18,5 +18,8 @@
   "VIDEO_LINK": "Youtube video identity",
   "TEXT": "Space for typing something",
   "CREATE_NEW_INSTRUCTION": "Create new instruction",
-  "TAGS": "Tags"
+  "TAGS": "Tags",
+  "PREVIEW": "Preview",
+  "EDITING": "Editing",
+  "EXPORT_PDF": "Export to PDF"
 }

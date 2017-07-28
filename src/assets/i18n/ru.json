@@ -18,5 +18,8 @@
   "VIDEO_LINK": "Идендитификатор видео youtube",
   "TEXT": "Место для текста",
   "CREATE_NEW_INSTRUCTION": "Новая инструкция",
-  "TAGS": "Тэги"
+  "TAGS": "Тэги",
+  "PREVIEW": "Предпросмотр",
+  "EDITING": "Редактирование",
+  "EXPORT_PDF": "Эеспортировать в PDF"
 }

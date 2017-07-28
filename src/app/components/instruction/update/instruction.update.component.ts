@@ -6,6 +6,9 @@ import {Part} from "../../../entities/part";
 import {Step} from "../../../entities/step";
 import {TagService} from "../../../services/tag.service";
 import {Tag} from "../../../entities/tag";
+import {UserService} from "../../../services/user.service";
+import { Location } from "@angular/common";
+import {User} from "../../../entities/user";
 
 declare var $: any;
 
@@ -18,6 +21,7 @@ export class InstructionUpdateComponent implements OnInit {
 
   private instruction: Instruction = new Instruction();
   private tags: Tag[] = [];
+  user: User = new User();
 
   ngOnInit() {
     this.loadTags();
@@ -26,8 +30,14 @@ export class InstructionUpdateComponent implements OnInit {
 
   constructor(private instructionService: InstructionService,
               private tagService: TagService,
+              private userService: UserService,
+              private location: Location,
               private route: ActivatedRoute,
               private router: Router) {
+    this.user = userService.getAuthUser();
+    userService.authData.subscribe(item => {
+      this.user = item;
+    });
   }
 
   createNewPart(step, type) {
@@ -56,7 +66,11 @@ export class InstructionUpdateComponent implements OnInit {
   takeParamFromRoute() {
     this.route.params.subscribe(params => {
       this.instructionService.getById(params['id']).subscribe(data => {
+        if (data.user.id != this.user.id) {
+          this.router.navigate(['instruction/watch', data.id]);
+        }
         this.instruction = data;
+        this.configureChips();
       }, error => {
         this.router.navigate(['404']);
       });
@@ -76,9 +90,15 @@ export class InstructionUpdateComponent implements OnInit {
       obj[this.tags[pos].name] = null;
     }
     let tags = [];
-    for (let tag of this.tags) {
+    for (let tag of this.instruction.tags) {
       tags.push({tag: tag.name});
     }
+
+    $('.chips').on('chip.add', (e, chip) => {
+      this.updateInstruction();
+    }).on('chip.delete', (e, chip) => {
+      this.updateInstruction();
+    });
 
     $(function () {
       $(document).ready(function () {

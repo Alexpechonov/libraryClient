@@ -1,5 +1,12 @@
 <div class="wrapper">
   <section id="container">
+    <div class="center-align">
+      <a class="waves-effect waves-light btn green" (click)="generatePdf()">{{"EXPORT_PDF" | translate}}</a>
+    </div>
+    <div class="center-align">
+      <a *ngIf="isAuthor" class="waves-effect waves-light btn green"
+         [routerLink]="['../../update/', instruction.id]">{{"EDITING" | translate}}</a>
+    </div>
     <div id="update-instruction-page" class="section">
       <div id="update-instruction-page-content" class="row">
         <div id="update-instruction-page-wall" class="col s12 m6">
@@ -23,15 +30,8 @@
           <div class="collapsible-body">
             <ul class="collection">
               <li class="collection-item" *ngFor="let part of step.parts; let i = index">
-                <!--<div>-->
-                <!--<a class="waves-effect waves-light btn-floating btn-large yellow tooltipped"-->
-                <!--data-position="right" data-delay="50" data-tooltip="I am a tooltip">-->
-                <!--<i class="large material-icons">mode_edit</i>-->
-                <!--</a>-->
-                <!--</div>-->
                 <div class="row">
-
-                  <div *ngIf="part.type == 'TYPE_TEXT'" class="label">{{part.data}}</div>
+                  <markdown *ngIf="part.type == 'TYPE_TEXT'" class="label">{{part.data}}</markdown>
 
                   <div *ngIf="part.type == 'TYPE_IMAGE'">
                     <div class="col s12 m2">
@@ -60,8 +60,9 @@
                       <img width="700" [src]="makeLinkToImg(part.data)">
                     </div>
                   </div>
-                  <div class="center">
-                    <youtube-player *ngIf="part.type == 'TYPE_VIDEO'" [videoId]="part.data" [width]="640" [height]="480"
+
+                  <div *ngIf="part.type == 'TYPE_VIDEO'" class="center">
+                    <youtube-player [videoId]="part.data" [width]="640" [height]="480"
                     ></youtube-player>
                   </div>
                 </div>
@@ -74,3 +75,9 @@
   </section>
 </div>
 
+<!--<div>-->
+<!--<a class="waves-effect waves-light btn-floating btn-large yellow tooltipped"-->
+<!--data-position="right" data-delay="50" data-tooltip="I am a tooltip">-->
+<!--<i class="large material-icons">mode_edit</i>-->
+<!--</a>-->
+<!--</div>-->

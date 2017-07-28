@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
-    this.userService.update().subscribe();
+    this.userService.update(this.user).subscribe();
   }
 
   upload() {

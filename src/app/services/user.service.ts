@@ -62,8 +62,13 @@ export class UserService {
     return this.authHttp.get(`${protectedServiceEndpoint}/user/me`).map((response: Response) => response.json());
   }
 
-  update() {
-    return this.authHttp.put(`${protectedServiceEndpoint}/user`, this.user).map((response: Response) => response.json());
+  update(user: User) {
+    return this.authHttp.put(`${protectedServiceEndpoint}/user`, user).map((response: Response) => {
+      if (response.json() && response.json().id == this.user.id) {
+        this.updateAuthUser(response.json());
+      }
+      response.json();
+    });
   }
 }
 
