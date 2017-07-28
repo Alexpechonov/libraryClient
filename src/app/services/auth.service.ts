@@ -12,6 +12,7 @@ export class AuthService {
   user: User = new User();
 
   isLoggedIn: EventEmitter<boolean> = new EventEmitter();
+  isAdministrator: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private userService: UserService,
               private router: Router){}
@@ -34,6 +35,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('token');
     this.isLoggedIn.emit(false);
+    this.isAdministrator.emit(false);
     this.router.navigate(['/']);
   }
 
@@ -67,6 +69,9 @@ export class AuthService {
       this.userService.getCurrentUser().subscribe(data => {
         this.userService.updateAuthUser(data);
         this.isLoggedIn.emit(true);
+        if (data.role == "ROLE_ADMIN") {
+          this.isAdministrator.emit(true);
+        }
       })
     });
   }

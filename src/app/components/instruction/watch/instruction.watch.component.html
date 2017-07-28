@@ -19,8 +19,8 @@
         </div>
       </div>
       <ul class="collapsible popout" data-collapsible="expandable">
-        <li *ngFor="let step of this.instruction.steps">
-          <div class="collapsible-header">
+        <li *ngFor="let step of this.instruction.steps; let i = index">
+          <div class="collapsible-header blue lighten-4">
             <div class="row">
               <div class="label">
                 {{step.name}}
@@ -68,6 +68,45 @@
                 </div>
               </li>
             </ul>
+            <div class="flex-container" fxLayoutAlign="center" fxLayout="column">
+              <div [hidden]="!auth" class="flex-item">
+                <div class="input-field col s8 m10">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea [(ngModel)]="comment" id="comment" class="validate materialize-textarea"
+                            data-length="5"></textarea>
+                  <label for="comment" data-error="max length 5000 symbols">Comment</label>
+                </div>
+                <div class="col s4 m2">
+                  <button class="btn btn-primary" (click)="createComment(comment, i)">
+                    <i class="material-icons">send</i>
+                  </button>
+                </div>
+              </div>
+              <div class="flex-item" *ngFor="let comment of comments[i]; let j = index"
+                   id="comment{{comment.id}}">
+                <md-card>
+                  <md-card-header>
+                    <div class="row" style="width: 100%;padding-right: 15px">
+                      <div style="float: right;color: darkgrey">{{comment.creationDate | date:'medium'}}</div>
+                    </div>
+                    <md-card-title style="font-size: 20px">
+                      {{comment.user.firstName}}
+                      <div [hidden]="!isAdmin">
+                        <a class="waves-effect waves-light btn-large blue"
+                           (click)="deleteComment(comment, i)">
+                          <i class="large material-icons">delete</i>
+                        </a>
+                      </div>
+                    </md-card-title>
+                  </md-card-header>
+                  <md-card-content>
+                    <div *ngIf="!comment.isEdit" style="padding: 10px 25px">
+                      {{comment.text}}
+                    </div>
+                  </md-card-content>
+                </md-card>
+              </div>
+            </div>
           </div>
         </li>
       </ul>

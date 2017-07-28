@@ -31,6 +31,8 @@ import {PartService} from "./services/part.service";
 import {YoutubePlayerModule} from "ng2-youtube-player";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MarkdownModule} from "angular2-markdown";
+import {CommentService} from "./services/comment.service";
+import {MaterialModule} from "@angular/material";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -59,6 +61,7 @@ export function HttpLoaderFactory(http: Http) {
     FormsModule,
     HttpModule,
     MaterializeModule,
+    MaterialModule,
     Ng2CloudinaryModule,
     FileUploadModule,
     TranslateModule.forRoot({
@@ -80,6 +83,7 @@ export function HttpLoaderFactory(http: Http) {
     TagService,
     InstructionService,
     PartService,
+    CommentService,
     NgSpinningPreloader,
     AuthGuard,
   ],

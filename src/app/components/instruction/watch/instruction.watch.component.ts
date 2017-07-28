@@ -5,6 +5,9 @@ import {InstructionService} from "../../../services/instruction.service";
 import {Part} from "../../../entities/part";
 import {User} from "../../../entities/user";
 import {UserService} from "../../../services/user.service";
+import {AuthService} from "../../../services/auth.service";
+import {CommentService} from "../../../services/comment.service";
+import {Comment} from "../../../entities/comment"
 
 declare var $: any;
 declare var jsPDF: any;
@@ -15,18 +18,26 @@ declare var jsPDF: any;
   styleUrls: ['./instruction.watch.component.css']
 })
 export class InstructionWatchComponent {
-  private instruction: Instruction = new Instruction();
-  private user: User = new User;
+  instruction: Instruction = new Instruction();
+  comments = [];
+  comment: string = "";
+  user: User = new User;
+  isAdmin: boolean;
   isAuthor: boolean;
+  auth: boolean;
 
   constructor(private instructionService: InstructionService,
+              private commentService: CommentService,
+              private authService: AuthService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
+    this.isAdmin = authService.isAdmin();
+    authService.isAdministrator.subscribe(data => this.isAdmin = data);
+    this.auth = authService.loggedIn();
+    authService.isLoggedIn.subscribe(data => this.auth = data);
     this.user = userService.getAuthUser();
-    userService.authData.subscribe(item => {
-      this.user = item;
-    });
+    userService.authData.subscribe(item => this.user = item);
     this.configureCollapsable();
     this.takeParamFromRoute();
   }
@@ -41,11 +52,35 @@ export class InstructionWatchComponent {
     this.route.params.subscribe(params => {
       this.instructionService.getById(params['id']).subscribe(data => {
         this.instruction = data;
+        this.takeComments();
         this.isAuthor = (this.instruction.user.id == this.user.id);
       }, error => {
         this.router.navigate(['404']);
       });
     });
+  }
+
+  takeComments() {
+    for (let i in this.instruction.steps) {
+      this.commentService.getAllForStep(this.instruction.steps[i].id).subscribe(data => {
+        this.comments[i] = data;
+      })
+    }
+  }
+
+  createComment(text: string, stepNumber: number) {
+    this.commentService.create(this.instruction.steps[stepNumber].id, text).subscribe(
+      data => {
+        this.comments[stepNumber].push(data);
+        this.comment = "";
+      }
+    );
+  }
+
+  deleteComment(comment: Comment, position: number) {
+    this.commentService.delete(comment.id).subscribe(data => {
+      this.comments[position].splice(this.comments[position].indexOf(comment, 0), 1);
+    })
   }
 
   addFilter(filter: string, part: Part) {
