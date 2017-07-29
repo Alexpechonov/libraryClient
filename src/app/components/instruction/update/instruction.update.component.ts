@@ -31,7 +31,6 @@ export class InstructionUpdateComponent implements OnInit {
   constructor(private instructionService: InstructionService,
               private tagService: TagService,
               private userService: UserService,
-              private location: Location,
               private route: ActivatedRoute,
               private router: Router) {
     this.user = userService.getAuthUser();
@@ -66,7 +65,7 @@ export class InstructionUpdateComponent implements OnInit {
   takeParamFromRoute() {
     this.route.params.subscribe(params => {
       this.instructionService.getById(params['id']).subscribe(data => {
-        if (data.user.id != this.user.id) {
+        if ((data.user.id != this.user.id) && (this.user.role != "ROLE_ADMIN")) {
           this.router.navigate(['instruction/watch', data.id]);
         }
         this.instruction = data;

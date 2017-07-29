@@ -4,7 +4,7 @@
       <a class="waves-effect waves-light btn green" (click)="generatePdf()">{{"EXPORT_PDF" | translate}}</a>
     </div>
     <div class="center-align">
-      <a *ngIf="isAuthor" class="waves-effect waves-light btn green"
+      <a *ngIf="isAuthor || isAdmin" class="waves-effect waves-light btn green"
          [routerLink]="['../../update/', instruction.id]">{{"EDITING" | translate}}</a>
     </div>
     <div id="update-instruction-page" class="section">
