@@ -30,4 +30,8 @@ export class InstructionService {
   getAll() {
     return this.http.get(`${openServiceEndpoint}/instruction`).map((response: Response) => response.json());
   }
+
+  getAllByUser(userId: number) {
+    return this.http.get(`${openServiceEndpoint}/instruction/user/` + userId).map((response: Response) => response.json());
+  }
 }

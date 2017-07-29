@@ -1,3 +1,4 @@
-/**
- * Created by user on 29.07.2017.
- */
+export class Category {
+  id: number;
+  name: string;
+}
