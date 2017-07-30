@@ -9,12 +9,15 @@
     </div>
     <div id="update-instruction-page" class="section">
       <div id="update-instruction-page-content" class="row">
-        <div id="update-instruction-page-wall" class="col s12 m6">
-          <div class="label">
+          <div class="label col s12 m8">
             {{instruction.name}}
           </div>
+        <div class="label col s12 m4">
+          {{instruction.category.name}}
         </div>
-        <div id="tags" class="col s12 m6">
+      </div>
+      <div class="row">
+        <div id="tags" class="center col s12 m8">
           <div class="chip" *ngFor="let tag of this.instruction.tags">{{tag.name}}</div>
         </div>
       </div>

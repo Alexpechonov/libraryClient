@@ -18,7 +18,7 @@ declare var jsPDF: any;
   styleUrls: ['./instruction.watch.component.css']
 })
 export class InstructionWatchComponent {
-  instruction: Instruction = new Instruction();
+  instruction: Instruction = new Instruction;
   comments = [];
   comment: string = "";
   user: User = new User;
@@ -53,7 +53,12 @@ export class InstructionWatchComponent {
       this.instructionService.getById(params['id']).subscribe(data => {
         this.instruction = data;
         this.takeComments();
-        this.isAuthor = (this.instruction.user.id == this.user.id);
+        this.userService.getCurrentUser().subscribe(data => {
+          if ((this.instruction.user.id != data.id) && (data.role != "ROLE_ADMIN")) {
+            this.router.navigate(['instruction/watch', this.instruction.id]);
+          }
+          this.isAuthor = (this.instruction.user.id == data.id);
+        })
       }, error => {
         this.router.navigate(['404']);
       });

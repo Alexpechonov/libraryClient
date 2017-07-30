@@ -21,5 +21,7 @@
   "TAGS": "Tags",
   "PREVIEW": "Preview",
   "EDITING": "Editing",
-  "EXPORT_PDF": "Export to PDF"
+  "EXPORT_PDF": "Export to PDF",
+  "CATEGORY": "Category",
+  "MORE_INFO": "More info"
 }

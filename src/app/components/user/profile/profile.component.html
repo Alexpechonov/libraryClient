@@ -52,17 +52,13 @@
             </div>
           </div>
         </div>
-        <div id="instructions">
-          <div class="collection">
-            <li *ngFor="let instruction of instructions">
-              <a [routerLink]="['../instruction/update',instruction.id]" class="collection-item">{{instruction.name}}</a>
-            </li>
-          </div>
-          <div class="center">
-            <a class="waves-effect waves-light btn center-align" (click)="createNewInstruction()">{{"CREATE_NEW_INSTRUCTION" |
-              translate}}</a>
-          </div>
+      </div>
+      <div id="instructions">
+        <div class="center">
+          <a class="waves-effect waves-light btn center-align" (click)="createNewInstruction()">{{"CREATE_NEW_INSTRUCTION" |
+            translate}}</a>
         </div>
+        <instruction-module [instructions]="this.instructions"></instruction-module>
       </div>
     </div>
   </section>

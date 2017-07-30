@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <section id="container">
+    <div id="profile-page" class="section">
+      <div id="profile-page-header" class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img id="profile-background" src="/assets/img/user-profile-bg.jpg">
+        </div>
+        <figure class="circle card-profile-image">
+          <img width="150" height="150" [src]="getImage()">
+        </figure>
+
+        <div class="card-content">
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+      <div id="profile-page-content" class="row">
+        <div id="user_data">
+          <div id="profile-page-wall" class="col s12 m8">
+            <div>
+              <label for="first_name">{{"FIRSTNAME" | translate}}</label>
+              <div id="first_name" class="label">
+                {{user.firstName}}
+              </div>
+            </div>
+            <div>
+              <label for="last_name">{{"LASTNAME" | translate}}</label>
+              <div id="last_name" class="label">
+                {{user.lastName}}
+              </div>
+            </div>
+          </div>
+          <div id="profile-page-sidebar" class="col s12 m4">
+            <div>
+              <label for="about">{{"ABOUT" | translate}}</label>
+              <div id="about" class="label">
+                {{user.about}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

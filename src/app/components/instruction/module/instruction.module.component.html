@@ -1,0 +1,18 @@
+<div class="gridOfCards" fxLayoutAlign="center" fxLayout="row" fxLayoutWrap="wrap"
+     infinite-scroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="100"
+     (scrolled)="addItems()">
+  <div class="card hoverable" *ngFor="let instruction of showedInstructions">
+    <div class="card-content">
+      <span class="card-title">{{instruction.name}}</span>
+      <a
+         [routerLink]="['/profile/', instruction.user.id]">
+        {{instruction.user.firstName}} {{instruction.user.lastName}}
+      </a>
+    </div>
+    <div class="card-action">
+      <a [routerLink]="['/instruction/watch/', instruction.id]">{{"MORE_INFO" | translate}}</a>
+    </div>
+  </div>
+</div>

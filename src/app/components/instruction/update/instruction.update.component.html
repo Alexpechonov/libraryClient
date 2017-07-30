@@ -4,70 +4,80 @@
       <a class="waves-effect waves-light btn green" [routerLink]="['../../watch/', instruction.id]">{{"PREVIEW" |
         translate}}</a>
     </div>
-    <div id="update-instruction-page" class="section">
-      <div id="update-instruction-page-content" class="row">
-        <div id="update-instruction-page-wall" class="col s12 m6">
-          <div class="input-field">
+    <div class="section">
+      <div class="row">
+        <div class="row">
+          <div class="input-field center col s12 m8">
             <input id="name" type="text" class="validate" name="name"
                    [(ngModel)]="instruction.name" (change)="updateInstruction()">
             <label for="name">{{"INSTRUCTIONTITLE" | translate}}</label>
           </div>
-        </div>
-        <div id="tags" class="col s12 m6">
-          <p class="caption">{{"TAGS" | translate}}</p>
-          <div class="chips chips-initial chips-autocomplete"></div>
-        </div>
-      </div>
-
-      <div class="center">
-        <a class="waves-effect waves-light btn center-align" (click)="createNewStep()">{{"CREATE_NEW_STEP" |
-          translate}}</a>
-      </div>
-
-      <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
-      <ul id="steps">
-        <li class="row center" style="width: 95%"
-            *ngFor="let step of this.instruction.steps | paginate: { itemsPerPage: 1, currentPage: p }">
-          <div class="input-field" style="width: 100%;">
-            <div class="row">
-              <input placeholder='{{"STEP_NAME" | translate}}' id="step_name" type="text"
-                     class="validate col s12 m10"
-                     name="step_name" [(ngModel)]="step.name" (change)="updateInstruction()">
-              <a id="delete_step" class="waves-effect waves-light btn col s12 m2" (click)="deleteStep(step)">{{"DELETE"
-                | translate}}</a>
-            </div>
+          <div id="category" class="col s12 m4">
+            <label>{{"CATEGORY" | translate}}</label>
+            <md2-select [(ngModel)]="instruction.category.id" (change)="changeCategory($event)">
+              <md2-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</md2-option>
+            </md2-select>
           </div>
-          <ul class="collection" dnd-sortable-container [sortableData]="step.parts">
-            <li class="collection-item" *ngFor="let part of step.parts; let i = index" dnd-sortable [sortableIndex]="i"
-                (onDropSuccess)="updateInstruction()">
+        </div>
+        <div class="row">
+          <div class="col s12 m3"></div>
+          <div id="tags" class="col s12 m6">
+            <p class="caption">{{"TAGS" | translate}}</p>
+            <div class="chips chips-initial chips-autocomplete"></div>
+          </div>
+          <div class="col s12 m3"></div>
+        </div>
+
+        <div class="center">
+          <a class="waves-effect waves-light btn center-align" (click)="createNewStep()">{{"CREATE_NEW_STEP" |
+            translate}}</a>
+        </div>
+
+        <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
+        <ul id="steps">
+          <li class="row center" style="width: 95%"
+              *ngFor="let step of this.instruction.steps | paginate: { itemsPerPage: 1, currentPage: p }">
+            <div class="input-field" style="width: 100%;">
               <div class="row">
+                <input placeholder='{{"STEP_NAME" | translate}}' id="step_name" type="text"
+                       class="validate col s12 m10"
+                       name="step_name" [(ngModel)]="step.name" (change)="updateInstruction()">
+                <a id="delete_step" class="waves-effect waves-light btn col s12 m2" (click)="deleteStep(step)">{{"DELETE"
+                  | translate}}</a>
+              </div>
+            </div>
+            <ul class="collection" dnd-sortable-container [sortableData]="step.parts">
+              <li class="collection-item" *ngFor="let part of step.parts; let i = index" dnd-sortable
+                  [sortableIndex]="i"
+                  (onDropSuccess)="updateInstruction()">
+                <div class="row">
                   <textarea *ngIf="part.type == 'TYPE_TEXT'" placeholder='{{"TEXT" | translate}}' type="text"
                             class="materialize-textarea validate col s12 m11" name="part.data"
                             [(ngModel)]="part.data" (change)="updateInstruction()"></textarea>
 
-                <image-upload *ngIf="part.type == 'TYPE_IMAGE'" [part]="part" (onChange)="updateInstruction()"
-                              class="center col s12 m11"></image-upload>
+                  <image-upload *ngIf="part.type == 'TYPE_IMAGE'" [part]="part" (onChange)="updateInstruction()"
+                                class="center col s12 m11"></image-upload>
 
-                <input *ngIf="part.type == 'TYPE_VIDEO'" placeholder='{{"VIDEO_LINK" | translate}}' type="text"
-                       [(ngModel)]="part.data" class="col s12 m11" (change)="updateInstruction()">
+                  <input *ngIf="part.type == 'TYPE_VIDEO'" placeholder='{{"VIDEO_LINK" | translate}}' type="text"
+                         [(ngModel)]="part.data" class="col s12 m11" (change)="updateInstruction()">
 
-                <a class="waves-effect waves-light btn" (click)="deletePart(step, part)"><i
-                  class="small material-icons">clear</i></a>
+                  <a class="waves-effect waves-light btn" (click)="deletePart(step, part)"><i
+                    class="small material-icons">clear</i></a>
+                </div>
+              </li>
+              <div class="center">
+                <a class="waves-effect waves-light btn" (click)="createNewPart(step, 'TYPE_TEXT')">{{"CREATE_NEW_TEXT" |
+                  translate}}</a>
+                <a class="waves-effect waves-light btn green" (click)="createNewPart(step, 'TYPE_IMAGE')">{{"CREATE_NEW_IMAGE"
+                  | translate}}</a>
+                <a class="waves-effect waves-light btn red" (click)="createNewPart(step, 'TYPE_VIDEO')">{{"CREATE_NEW_VIDEO"
+                  | translate}}</a>
               </div>
-            </li>
-            <div class="center">
-              <a class="waves-effect waves-light btn" (click)="createNewPart(step, 'TYPE_TEXT')">{{"CREATE_NEW_TEXT" |
-                translate}}</a>
-              <a class="waves-effect waves-light btn green" (click)="createNewPart(step, 'TYPE_IMAGE')">{{"CREATE_NEW_IMAGE"
-                | translate}}</a>
-              <a class="waves-effect waves-light btn red" (click)="createNewPart(step, 'TYPE_VIDEO')">{{"CREATE_NEW_VIDEO"
-                | translate}}</a>
-            </div>
-          </ul>
-          <!--</div>-->
-        </li>
-      </ul>
-      <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
+            </ul>
+          </li>
+        </ul>
+        <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
+      </div>
     </div>
   </section>
 </div>

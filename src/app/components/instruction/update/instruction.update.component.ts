@@ -7,9 +7,11 @@ import {Step} from "../../../entities/step";
 import {TagService} from "../../../services/tag.service";
 import {Tag} from "../../../entities/tag";
 import {UserService} from "../../../services/user.service";
-import { Location } from "@angular/common";
 import {User} from "../../../entities/user";
+import {Category} from "../../../entities/category";
+import {CategoryService} from "../../../services/category.service";
 
+declare var Materialize: any;
 declare var $: any;
 
 @Component({
@@ -19,17 +21,21 @@ declare var $: any;
 })
 export class InstructionUpdateComponent implements OnInit {
 
-  private instruction: Instruction = new Instruction();
-  private tags: Tag[] = [];
+  instruction: Instruction = new Instruction();
+  tags: Tag[] = [];
   user: User = new User();
+  categories: Category[] = [];
 
   ngOnInit() {
-    this.loadTags();
     this.takeParamFromRoute();
+    setTimeout(() => {
+      Materialize.updateTextFields();
+    }, 300);
   }
 
   constructor(private instructionService: InstructionService,
               private tagService: TagService,
+              private categoryService: CategoryService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -65,15 +71,29 @@ export class InstructionUpdateComponent implements OnInit {
   takeParamFromRoute() {
     this.route.params.subscribe(params => {
       this.instructionService.getById(params['id']).subscribe(data => {
-        if ((data.user.id != this.user.id) && (this.user.role != "ROLE_ADMIN")) {
-          this.router.navigate(['instruction/watch', data.id]);
-        }
         this.instruction = data;
-        this.configureChips();
+        this.userService.getCurrentUser().subscribe(data => {
+          if ((this.instruction.user.id != data.id) && (data.role != "ROLE_ADMIN")) {
+            this.router.navigate(['instruction/watch', this.instruction.id]);
+          }
+          this.loadTags();
+          this.loadCategories();
+        })
       }, error => {
         this.router.navigate(['404']);
       });
     });
+  }
+
+  loadCategories() {
+    this.categoryService.getAll().subscribe(data => {
+      this.categories = data;
+    })
+  }
+
+  changeCategory(event) {
+    if (event.source == null) return;
+    this.updateInstruction();
   }
 
   loadTags() {

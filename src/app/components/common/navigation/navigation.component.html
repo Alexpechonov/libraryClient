@@ -51,11 +51,11 @@
         <div class="background">
           <img src="assets/img/user-profile-bg.jpg">
         </div>
-        <a [routerLink]="['profile']">
+        <a [routerLink]="['/profile/me']">
           <cl-image public-id="{{user.image}}" cloud-name="libraryofinstructions" width="150" height="150"
                     gravity="face" crop="thumb"></cl-image>
         </a>
-        <a id="name" [routerLink]="['profile']">
+        <a id="name" [routerLink]="['/profile/me']">
           {{user.firstName}} {{user.lastName}}
         </a>
       </div>

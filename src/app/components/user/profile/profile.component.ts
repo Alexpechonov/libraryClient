@@ -25,16 +25,14 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private instructionService: InstructionService,
               private router: Router) {
-
     userService.authData.subscribe(data => {
       this.user = data;
     })
-
     instructionService.getAll().subscribe(data => {
       this.instructions = data;
     })
-
     this.configUploader();
+    window.scrollTo(0,0);
   }
 
   configUploader() {
@@ -55,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.user = this.userService.getAuthUser();
     setTimeout(() => {
       Materialize.updateTextFields();
-    }, 100);
+    }, 300);
   }
 
   createNewInstruction() {

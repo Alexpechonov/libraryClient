@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {CloudinaryUploader, CloudinaryOptions} from "ng2-cloudinary";
-import {PartService} from "../../../services/part.service";
 import {Part} from "../../../entities/part";
 
 @Component({
