@@ -26,6 +26,7 @@ export class NavigationComponent implements OnInit {
     this.isAdmin = authService.isAdmin();
     userService.authData.subscribe(item => {
       this.user = item;
+      this.isAdmin = authService.isAdmin();
     });
     this.isLoggedIn = authService.loggedIn();
     authService.isLoggedIn.subscribe(item => {

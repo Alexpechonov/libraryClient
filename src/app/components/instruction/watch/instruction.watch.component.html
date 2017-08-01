@@ -9,16 +9,19 @@
     </div>
     <div id="update-instruction-page" class="section">
       <div id="update-instruction-page-content" class="row">
-          <div class="label col s12 m8">
-            {{instruction.name}}
-          </div>
+        <div class="label col s12 m8">
+          {{instruction.name}}
+        </div>
         <div class="label col s12 m4">
           {{instruction.category.name}}
         </div>
       </div>
       <div class="row">
-        <div id="tags" class="center col s12 m8">
+        <div id="tags" class="col s12 m8">
           <div class="chip" *ngFor="let tag of this.instruction.tags">{{tag.name}}</div>
+        </div>
+        <div class="col s12 m4">
+          <rating *ngIf="this.instruction" [instructionId]="this.instruction.id"></rating>
         </div>
       </div>
       <ul class="collapsible popout" data-collapsible="expandable">

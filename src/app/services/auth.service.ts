@@ -41,7 +41,12 @@ export class AuthService {
 
   isAdmin(): boolean {
     if (this.loggedIn()) {
-      return (this.userService.getAuthUser().role == "ROLE_ADMIN");
+      let token = localStorage.getItem('token');
+      let jwtHelper: JwtHelper = new JwtHelper();
+      let isAdmin = jwtHelper.decodeToken(token).role == 'ROLE_ADMIN';
+      if (isAdmin) {
+        return true;
+      }
     }
     return false;
   }
@@ -56,8 +61,10 @@ export class AuthService {
       case 'twitter':
         this.parseTwitterData(profile);
         break;
+      case 'facebook':
       case 'vkontakte':
-        this.parseVkontakteData(profile);
+      case 'google-oauth2':
+        this.parseSocialData(profile);
         break;
       default:
         alert("Unknown provider");
@@ -73,6 +80,8 @@ export class AuthService {
           this.isAdministrator.emit(true);
         }
       })
+    }, error => {
+      alert("Your account is blocked");
     });
   }
 
@@ -82,7 +91,7 @@ export class AuthService {
     this.user.userName = profile.user_id;
   }
 
-  parseVkontakteData(profile) {
+  parseSocialData(profile) {
     this.user.firstName = profile.given_name;
     this.user.lastName = profile.family_name;
     this.user.identity = profile.identities["0"].user_id;

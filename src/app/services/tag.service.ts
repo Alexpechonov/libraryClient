@@ -8,7 +8,8 @@ const openServiceEndpoint = AppSettings.openServiceEndpoint;
 @Injectable()
 export class TagService {
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+  }
 
   getAll() {
     return this.http.get(`${openServiceEndpoint}/tag/`).map((response: Response) => response.json());

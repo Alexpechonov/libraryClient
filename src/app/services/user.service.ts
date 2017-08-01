@@ -62,6 +62,10 @@ export class UserService {
     return this.authHttp.get(`${protectedServiceEndpoint}/user/me`).map((response: Response) => response.json());
   }
 
+  getAll() {
+    return this.authHttp.get(`${protectedServiceEndpoint}/user`).map((response: Response) => response.json());
+  }
+
   update(user: User) {
     return this.authHttp.put(`${protectedServiceEndpoint}/user`, user).map((response: Response) => {
       if (response.json() && response.json().id == this.user.id) {
@@ -69,6 +73,10 @@ export class UserService {
       }
       response.json();
     });
+  }
+
+  delete(id: number) {
+    return this.authHttp.delete(`${protectedServiceEndpoint}/user/` + id).map((response: Response) => response);
   }
 }
 

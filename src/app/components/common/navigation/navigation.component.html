@@ -64,7 +64,11 @@
     <li class="hoverable" *ngIf="!isLoggedIn"><a (click)="login()">{{"LOGIN" | translate}}</a></li>
     <!--logout (should be the last!)-->
 
+    <!--Admin users-->
+    <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/users']">{{"USERS" | translate}}</a></li>
+
     <!--logout (should be the last!)-->
     <li class="hoverable" [hidden]="!isLoggedIn"><a (click)="logout()">{{"LOGOUT" | translate}}</a></li>
+
   </ul>
 </div>

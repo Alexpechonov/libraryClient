@@ -1,7 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import 'hammerjs';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {UserService} from "./services/user.service";
 import {HttpModule, Http, RequestOptions} from "@angular/http";
@@ -32,7 +33,20 @@ import {YoutubePlayerModule} from "ng2-youtube-player";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MarkdownModule} from "angular2-markdown";
 import {CommentService} from "./services/comment.service";
-import {MaterialModule} from "@angular/material";
+import {MaterialModule, MdSliderModule} from "@angular/material";
+import {WatchProfileComponent} from "./components/user/profile/watch/profile.watch.component";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CategoryService} from "./services/category.service";
+import {Md2SelectModule} from "md2-select/select";
+import {InstructionModuleComponent} from "./components/instruction/module/instruction.module.component";
+import {AdminGuard} from "./guards/admin.guard";
+import {AdminUsersComponent} from "./components/user/admin/users/admin.users";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {BarRatingModule} from "ngx-bar-rating";
+import {RatingService} from "./services/rating.service";
+import {RatingComponent} from "./components/common/rating/rating.component";
+import {StarRatingModule} from "angular-star-rating";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -48,22 +62,33 @@ export function HttpLoaderFactory(http: Http) {
     ProfileComponent,
     InstructionUpdateComponent,
     InstructionWatchComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    WatchProfileComponent,
+    InstructionModuleComponent,
+    AdminUsersComponent,
+    RatingComponent,
   ],
   imports: [
     DndModule.forRoot(),
     MarkdownModule.forRoot(),
     NgxPaginationModule,
+    InfiniteScrollModule,
+    Md2SelectModule,
     BrowserModule,
+    MdSliderModule,
+    FlexLayoutModule,
     YoutubePlayerModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
     HttpModule,
     MaterializeModule,
-    MaterialModule,
+    [MaterialModule.forRoot()],
+    BrowserAnimationsModule,
     Ng2CloudinaryModule,
     FileUploadModule,
+    BarRatingModule,
+    StarRatingModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -82,11 +107,15 @@ export function HttpLoaderFactory(http: Http) {
     AuthService,
     TagService,
     InstructionService,
+    CategoryService,
     PartService,
     CommentService,
+    RatingService,
     NgSpinningPreloader,
     AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

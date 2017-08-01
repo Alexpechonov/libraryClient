@@ -1,1 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/core/theming/prebuilt/purple-green.css';
+@import "../node_modules/materialize-css/dist/css/materialize.min.css";
+@import "../src/app/components/common/preloader/style/ng-spinning-preloader.css";
+@import '../node_modules/ngx-bar-rating/themes/br-default-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-bootstrap-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-fontawesome-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-fontawesome-o-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-horizontal-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-vertical-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-stars-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-movie-theme.css';
+@import '../node_modules/ngx-bar-rating/themes/br-square-theme.css';
+
+body {
+  margin: 0;
+  background:white;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.material-form {
+  font-family: 'roboto', sans-serif;
+  margin: 10px auto 0;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+  padding: 0 40px 20px;
+  background-color: #eeeeee;
+  border-radius: 3px;
+}
+
+.material-form .form-title {
+  width: inherit;
+  background: #03A9F4;
+  padding: 20px;
+  color: white;
+  font-size: 1.2em;
+  margin: 0 -40px;
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.05);
+  border-radius: 3px 3px 0 0;
+}
+
+.unHighlight > .md-list-item {
+  background: rgba(0, 0, 0, 0) !important;
+}
+
+.md-slider-thumb-label {
+  cursor: default;
+}
+
+.cl-round > img {
+  border-radius: 360%;
+}
+
+::-webkit-scrollbar
+{
+  width: 6px;  /* for vertical scrollbars */
+  height: 6px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.transitionable {
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.has-error input {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336 !important;
+  background-color: transparent !important;
+}
+
+.has-error i {
+  color: #F44336 !important;
+}
+
+.has-error label::before {
+  border-color: #f44336 !important;
+}
