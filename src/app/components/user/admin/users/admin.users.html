@@ -1,0 +1,24 @@
+<div class="container">
+  <ul class="collection">
+    <li *ngFor="let user of users">
+      <div  class="collection-item" *ngIf="user.role != 'ROLE_ADMIN'">
+      <cl-image height="50" width="50" crop="fill" class="cl-round" gravity="auto"
+                  public-id="{{user.image}}" cloud-name="libraryofinstructions"></cl-image>
+        <a class="title" [routerLink]="['/profile/', user.id]">{{user.userName}}</a>
+        <div class="secondary-content">
+          <md-slide-toggle style="margin: 5px !important;" [checked]="user.enabled"
+                           (change)="updateEnabled(user, $event)">
+            {{"ENABLED" |
+            translate}}
+          </md-slide-toggle>
+        </div>
+        <div class="secondary-content">
+          <a class="waves-effect waves-light btn-floating blue"
+             (click)="deleteUser(user)">
+            <i class="large material-icons">delete</i>
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,3 @@
+<bar-rating [theme]="'stars'" [rate]="rate" [max]="10" (rateChange)="updateRating($event)"
+            (hover)="showRate()" (leave)="hideRate()"></bar-rating>
+<div id="rate" *ngIf="show" class="label center blue-text flow-text">{{"YOUR_RATE" | translate}} {{myRate}}</div>
