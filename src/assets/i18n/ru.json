@@ -26,5 +26,6 @@
   "MORE_INFO": "Подробно",
   "USERS": "Пользователи",
   "ENABLED": "Включён",
-  "YOUR_RATE": "Ваша оценка - "
+  "YOUR_RATE": "Ваша оценка - ",
+  "DELETE_INSTRUCTION": "Удалить инструкцию"
 }

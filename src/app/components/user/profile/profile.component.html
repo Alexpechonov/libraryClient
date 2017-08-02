@@ -11,11 +11,9 @@
           </cl-image>
         </figure>
         <div class="file-field input-field">
-          <div md-tooltip="you also can drop image here" tooltip-position="below">
-            <div class="btn">
-              <span>{{"NEWIMAGE" | translate}}</span>
-              <input type="file" accept="image/*" ng2FileSelect [uploader]="uploader">
-            </div>
+          <div class="btn">
+            <span>{{"NEWIMAGE" | translate}}</span>
+            <input type="file" accept="image/*" ng2FileSelect [uploader]="uploader">
           </div>
         </div>
         <div class="card-content">
@@ -56,7 +54,8 @@
       </div>
       <div id="instructions">
         <div class="center">
-          <a class="waves-effect waves-light btn center-align" (click)="createNewInstruction()">{{"CREATE_NEW_INSTRUCTION" |
+          <a class="waves-effect waves-light btn center-align" (click)="createNewInstruction()">{{"CREATE_NEW_INSTRUCTION"
+            |
             translate}}</a>
         </div>
         <instruction-module [instructions]="this.instructions"></instruction-module>

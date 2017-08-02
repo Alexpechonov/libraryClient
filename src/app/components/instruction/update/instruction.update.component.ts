@@ -72,17 +72,21 @@ export class InstructionUpdateComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.instructionService.getById(params['id']).subscribe(data => {
         this.instruction = data;
-        this.userService.getCurrentUser().subscribe(data => {
-          if ((this.instruction.user.id != data.id) && (data.role != "ROLE_ADMIN")) {
-            this.router.navigate(['instruction/watch', this.instruction.id]);
-          }
-          this.loadTags();
-          this.loadCategories();
-        })
+        this.getUser();
       }, error => {
         this.router.navigate(['404']);
       });
     });
+  }
+
+  getUser() {
+    this.userService.getCurrentUser().subscribe(data => {
+      if ((this.instruction.user.id != data.id) && (data.role != "ROLE_ADMIN")) {
+        this.router.navigate(['instruction/watch', this.instruction.id]);
+      }
+      this.loadTags();
+      this.loadCategories();
+    })
   }
 
   loadCategories() {
@@ -152,5 +156,13 @@ export class InstructionUpdateComponent implements OnInit {
       newTag.name = el.firstChild.data;
       this.instruction.tags.push(newTag);
     }
+  }
+
+  deleteInstruction() {
+    this.instructionService.delete(this.instruction.id).subscribe(data => {
+      this.router.navigate(['profile/me']);
+    }, error => {
+      alert("Can't delete instruction");
+    })
   }
 }

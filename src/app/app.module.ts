@@ -47,6 +47,7 @@ import {BarRatingModule} from "ngx-bar-rating";
 import {RatingService} from "./services/rating.service";
 import {RatingComponent} from "./components/common/rating/rating.component";
 import {StarRatingModule} from "angular-star-rating";
+import {MedalService} from "./services/medal.service";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -111,6 +112,7 @@ export function HttpLoaderFactory(http: Http) {
     PartService,
     CommentService,
     RatingService,
+    MedalService,
     NgSpinningPreloader,
     AuthGuard,
     AdminGuard

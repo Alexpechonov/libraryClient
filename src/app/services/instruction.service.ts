@@ -18,6 +18,11 @@ export class InstructionService {
       .map((response: Response) => response.json());
   }
 
+  delete(id: number) {
+    return this.authHttp.delete(`${protectedServiceEndpoint}/instruction/` +  id)
+      .map((response: Response) => response);
+  }
+
   update(instruction: Instruction) {
     return this.authHttp.put(`${protectedServiceEndpoint}/instruction`, instruction)
       .map((response: Response) => response.json());

@@ -1,3 +1,4 @@
+import {Medal} from "./medal";
 export class User {
   id: number;
   image: string;
@@ -8,4 +9,9 @@ export class User {
   enabled: boolean;
   about: string;
   role: string;
+  medals: Medal[];
+
+  constructor() {
+    this.medals = [];
+  }
 }
