@@ -1,0 +1,24 @@
+<div class="container">
+  <div id="categories">
+    <h3>{{"CATEGORIES" | translate}}:</h3>
+    <div id="create_category" style="display: flex">
+      <input placeholder="{{category}}" id="category" type="text" class="validate" name="category"
+             [(ngModel)]="category">
+      <a class="waves-effect waves-light btn center-align" (click)="addCategory()">{{"CREATE_NEW_CATEGORY"
+        |
+        translate}}</a>
+    </div>
+    <ul class="collection">
+      <li *ngFor="let category of categories | paginate: { itemsPerPage: 10, currentPage: p }" class="collection-item">
+        <a>{{category.name}}</a>
+        <div class="secondary-content" *ngIf="category.name != 'In progress'">
+          <a class="waves-effect waves-light btn-floating blue"
+             (click)="deleteCategory(category)">
+            <i class="large material-icons">delete</i>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

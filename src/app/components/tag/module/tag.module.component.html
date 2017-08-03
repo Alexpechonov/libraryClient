@@ -1,0 +1,8 @@
+<div id="myCanvasContainer">
+  <canvas width="300" height="300" id="myCanvas"></canvas>
+</div>
+<div id="tags">
+  <ul>
+    <li><a *ngFor="let tag of tags" href="/instruction/tag/{{tag.id}}">{{tag.name}}</a></li>
+  </ul>
+</div>

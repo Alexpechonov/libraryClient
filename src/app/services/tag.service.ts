@@ -11,6 +11,10 @@ export class TagService {
   constructor(private http: Http) {
   }
 
+  getById(id: number) {
+    return this.http.get(`${openServiceEndpoint}/tag/` + id).map((response: Response) => response.json());
+  }
+
   getAll() {
     return this.http.get(`${openServiceEndpoint}/tag/`).map((response: Response) => response.json());
   }
