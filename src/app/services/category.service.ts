@@ -17,7 +17,9 @@ export class CategoryService {
     return this.http.get(`${openServiceEndpoint}/category`).map((response: Response) => response.json());
   }
 
-  public create(category: Category) {
+  public create(name: string) {
+    let category = new Category();
+    category.name = name;
     return this.authHttp.post(`${protectedServiceEndpoint}/category`, category)
       .map((response: Response) => response.json())
   }

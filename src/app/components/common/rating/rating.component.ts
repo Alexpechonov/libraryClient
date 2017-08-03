@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {RatingService} from "../../../services/rating.service";
 import {Rating} from "../../../entities/rating";
+import {AuthService} from "../../../services/auth.service";
 
 declare var $: any;
 
@@ -14,20 +15,25 @@ export class RatingComponent implements OnChanges {
     this.getRating();
     this.getUserRate();
   }
+
   @Input() instructionId: number;
   rate: number = 0;
   myRate: number = 0;
 
   show: boolean = false;
+  isLoggedIn: boolean;
 
-  constructor(private ratingService: RatingService) {
+  constructor(private ratingService: RatingService,
+              private authService: AuthService) {
+    this.isLoggedIn = AuthService.loggedIn();
+    authService.isLoggedIn.subscribe(item => {
+      this.isLoggedIn = item;
+    });
   }
 
   getUserRate() {
-    if (!this.instructionId) return;
-    this.ratingService.getMyRate(this.instructionId).subscribe(data =>
-      this.myRate = data
-    );
+    if (!this.instructionId || !this.isLoggedIn) return;
+    this.ratingService.getMyRate(this.instructionId).subscribe(data =>this.myRate = data, error =>{});
   }
 
   getRating() {

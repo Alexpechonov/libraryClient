@@ -1,18 +1,33 @@
-<div class="gridOfCards" fxLayoutAlign="center" fxLayout="row" fxLayoutWrap="wrap"
-     infinite-scroll
-     [infiniteScrollDistance]="2"
-     [infiniteScrollThrottle]="100"
-     (scrolled)="addItems()">
-  <div class="card hoverable" *ngFor="let instruction of showedInstructions">
-    <div class="card-content">
-      <span class="card-title">{{instruction.name}}</span>
-      <a
-         [routerLink]="['/profile/', instruction.user.id]">
-        {{instruction.user.firstName}} {{instruction.user.lastName}}
-      </a>
-    </div>
-    <div class="card-action">
-      <a [routerLink]="['/instruction/watch/', instruction.id]">{{"MORE_INFO" | translate}}</a>
+<div>
+  <div id="sort" class="center-block" *ngIf="withSort">
+    <md2-select [(ngModel)]="currentSort.id" (change)="changeSort($event)">
+      <md2-option *ngFor="let sortType of sortTypes" [value]="sortType.id">{{sortType.name}}</md2-option>
+    </md2-select>
+  </div>
+  <div class="gridOfCards" fxLayoutAlign="center" fxLayout="row" fxLayoutWrap="wrap"
+       infinite-scroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="100"
+       (scrolled)="addItems()">
+    <div class="card hoverable" *ngFor="let instruction of showedInstructions">
+      <div class="card-content">
+        <span class="card-title">{{instruction.name}}</span>
+        <div>
+          <a
+            [routerLink]="['/profile/', instruction.user.id]">
+            {{instruction.user.firstName}} {{instruction.user.lastName}}
+          </a>
+        </div>
+        <div>
+          <a
+            [routerLink]="['/']">
+            {{instruction.category.name}}
+          </a>
+        </div>
+      </div>
+      <div class="card-action">
+        <a [routerLink]="['/instruction/watch/', instruction.id]">{{"MORE_INFO" | translate}}</a>
+      </div>
     </div>
   </div>
 </div>

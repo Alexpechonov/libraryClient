@@ -39,7 +39,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  isAdmin(): boolean {
+  public static isAdmin(): boolean {
     if (this.loggedIn()) {
       let token = localStorage.getItem('token');
       let jwtHelper: JwtHelper = new JwtHelper();
@@ -51,7 +51,7 @@ export class AuthService {
     return false;
   }
 
-  loggedIn(): boolean {
+  public static loggedIn(): boolean {
     let jwt: JwtHelper = new JwtHelper();
     return localStorage.getItem('token') !== null && !jwt.isTokenExpired(localStorage.getItem('token'));
   }
@@ -70,19 +70,27 @@ export class AuthService {
         alert("Unknown provider");
     }
     this.user.image = "sample";
+    this.loginRequest();
+  }
+
+  loginRequest() {
     this.userService.updateAuthUser(this.user);
     this.userService.login().subscribe(data => {
       localStorage.setItem('token', data.text());
-      this.userService.getCurrentUser().subscribe(data => {
-        this.userService.updateAuthUser(data);
-        this.isLoggedIn.emit(true);
-        if (data.role == "ROLE_ADMIN") {
-          this.isAdministrator.emit(true);
-        }
-      })
+      this.getCurUser();
     }, error => {
       alert("Your account is blocked");
     });
+  }
+
+  getCurUser() {
+    this.userService.getCurrentUser().subscribe(data => {
+      this.userService.updateAuthUser(data);
+      this.isLoggedIn.emit(true);
+      if (data.role == "ROLE_ADMIN") {
+        this.isAdministrator.emit(true);
+      }
+    })
   }
 
   parseTwitterData(profile) {

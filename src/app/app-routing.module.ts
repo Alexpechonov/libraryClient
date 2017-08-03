@@ -11,6 +11,8 @@ import {InstructionWatchComponent} from "./components/instruction/watch/instruct
 import {WatchProfileComponent} from "./components/user/profile/watch/profile.watch.component";
 import {AdminGuard} from "./guards/admin.guard";
 import {AdminUsersComponent} from "./components/user/admin/users/admin.users";
+import {AdminManageComponent} from "./components/user/admin/management/admin.manage";
+import {InstructionByTagComponent} from "./components/instruction/bytag/instruction.bytag.component";
 
 const routes: Routes = [
 
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'instruction/update/:id', component: InstructionUpdateComponent, canActivate: [AuthGuard]},
   {path: 'instruction/watch/:id', component: InstructionWatchComponent},
   {path: 'admin/users', component: AdminUsersComponent, canActivate: [AdminGuard]},
+  {path: 'admin/manage', component: AdminManageComponent, canActivate: [AdminGuard]},
+  {path: 'instruction/tag/:id', component: InstructionByTagComponent},
 
   {path: 'home', redirectTo:''},
   {path: '**', redirectTo: '404'}

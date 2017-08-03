@@ -33,7 +33,7 @@ img {
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  top: 60px;
+  top: -60px;
   left: -65%;
 }
 

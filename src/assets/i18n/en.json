@@ -27,5 +27,9 @@
   "USERS": "Users",
   "ENABLED": "Enabled",
   "YOUR_RATE": "Your mark - ",
-  "DELETE_INSTRUCTION": "Delete instruction"
+  "DELETE_INSTRUCTION": "Delete instruction",
+  "MANAGEMENT": "Management",
+  "CREATE_NEW_CATEGORY": "Create category",
+  "CATEGORIES": "Categories",
+  "SEARCH_BY_TAG": "Search by tag"
 }

@@ -15,3 +15,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+div#sort {
+  max-width: 500px;
+}

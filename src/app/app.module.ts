@@ -48,6 +48,10 @@ import {RatingService} from "./services/rating.service";
 import {RatingComponent} from "./components/common/rating/rating.component";
 import {StarRatingModule} from "angular-star-rating";
 import {MedalService} from "./services/medal.service";
+import {AdminManageComponent} from "./components/user/admin/management/admin.manage";
+import {TagCloudModule} from "angular-tag-cloud-module";
+import {InstructionByTagComponent} from "./components/instruction/bytag/instruction.bytag.component";
+import {TagModuleComponent} from "./components/tag/module/tag.module.component";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -68,6 +72,9 @@ export function HttpLoaderFactory(http: Http) {
     InstructionModuleComponent,
     AdminUsersComponent,
     RatingComponent,
+    AdminManageComponent,
+    InstructionByTagComponent,
+    TagModuleComponent
   ],
   imports: [
     DndModule.forRoot(),
@@ -89,6 +96,7 @@ export function HttpLoaderFactory(http: Http) {
     Ng2CloudinaryModule,
     FileUploadModule,
     BarRatingModule,
+    TagCloudModule,
     StarRatingModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

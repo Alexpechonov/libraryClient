@@ -32,9 +32,9 @@ export class InstructionWatchComponent {
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.isAdmin = authService.isAdmin();
+    this.isAdmin = AuthService.isAdmin();
     authService.isAdministrator.subscribe(data => this.isAdmin = data);
-    this.auth = authService.loggedIn();
+    this.auth = AuthService.loggedIn();
     authService.isLoggedIn.subscribe(data => this.auth = data);
     this.user = userService.getAuthUser();
     userService.authData.subscribe(item => this.user = item);
@@ -53,16 +53,17 @@ export class InstructionWatchComponent {
       this.instructionService.getById(params['id']).subscribe(data => {
         this.instruction = data;
         this.takeComments();
-        this.userService.getCurrentUser().subscribe(data => {
-          if ((this.instruction.user.id != data.id) && (data.role != "ROLE_ADMIN")) {
-            this.router.navigate(['instruction/watch', this.instruction.id]);
-          }
-          this.isAuthor = (this.instruction.user.id == data.id);
-        })
+        this.getMe();
       }, error => {
         this.router.navigate(['404']);
       });
     });
+  }
+
+  getMe() {
+    this.userService.getCurrentUser().subscribe(data => {
+      this.isAuthor = (this.instruction.user.id == data.id);
+    })
   }
 
   takeComments() {

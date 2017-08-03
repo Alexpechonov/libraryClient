@@ -39,4 +39,8 @@ export class InstructionService {
   getAllByUser(userId: number) {
     return this.http.get(`${openServiceEndpoint}/instruction/user/` + userId).map((response: Response) => response.json());
   }
+
+  getAllByTag(tagId: number) {
+    return this.http.get(`${openServiceEndpoint}/instruction/tag/` + tagId).map((response: Response) => response.json());
+  }
 }

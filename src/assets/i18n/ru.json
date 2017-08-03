@@ -27,5 +27,9 @@
   "USERS": "Пользователи",
   "ENABLED": "Включён",
   "YOUR_RATE": "Ваша оценка - ",
-  "DELETE_INSTRUCTION": "Удалить инструкцию"
+  "DELETE_INSTRUCTION": "Удалить инструкцию",
+  "MANAGEMENT": "Администрирование",
+  "CREATE_NEW_CATEGORY": "Добавить категорию",
+  "CATEGORIES": "Категории",
+  "SEARCH_BY_TAG": "Поиск по тегу"
 }

@@ -5,7 +5,7 @@
         <div>
           <cl-image height="50" width="50" crop="fill" class="cl-round" gravity="auto"
                     public-id="{{user.image}}" cloud-name="libraryofinstructions"></cl-image>
-          <a class="title" [routerLink]="['/profile/', user.id]">{{user.userName}}</a>
+          <a class="title" [routerLink]="['/profile/', user.id]">{{user.userName}} {{user.firstName}} {{user.lastName}}</a>
           <div class="secondary-content">
             <md-slide-toggle style="margin: 5px !important;" [checked]="user.enabled"
                              (change)="updateEnabled(user, $event)">
@@ -20,7 +20,7 @@
             </a>
           </div>
         </div>
-        <div style="display: flex;">
+        <div id="medals" style="display: flex;">
           <div *ngFor="let medal of medals" style="display: flex;">
             <div class="widthdelimeter"></div>
             <div class="tooltip">
