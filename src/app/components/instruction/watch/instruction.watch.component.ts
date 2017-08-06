@@ -8,9 +8,10 @@ import {UserService} from "../../../services/user.service";
 import {AuthService} from "../../../services/auth.service";
 import {CommentService} from "../../../services/comment.service";
 import {Comment} from "../../../entities/comment"
+import {Step} from "../../../entities/step";
+import {PdfmakeService} from 'ng-pdf-make/pdfmake/pdfmake.service';
 
 declare var $: any;
-declare var jsPDF: any;
 
 @Component({
   selector: 'instruction_watch',
@@ -32,14 +33,26 @@ export class InstructionWatchComponent {
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.isAdmin = AuthService.isAdmin();
-    authService.isAdministrator.subscribe(data => this.isAdmin = data);
-    this.auth = AuthService.loggedIn();
-    authService.isLoggedIn.subscribe(data => this.auth = data);
-    this.user = userService.getAuthUser();
-    userService.authData.subscribe(item => this.user = item);
+    this.getUser();
+    this.getAdminState();
+    this.getAuthState();
     this.configureCollapsable();
     this.takeParamFromRoute();
+  }
+
+  getUser() {
+    this.user = this.userService.getAuthUser();
+    this.userService.authData.subscribe(item => this.user = item);
+  }
+
+  getAdminState() {
+    this.isAdmin = AuthService.isAdmin();
+    this.authService.isAdministrator.subscribe(data => this.isAdmin = data);
+  }
+
+  getAuthState() {
+    this.auth = AuthService.loggedIn();
+    this.authService.isLoggedIn.subscribe(data => this.auth = data);
   }
 
   configureCollapsable() {
@@ -61,6 +74,7 @@ export class InstructionWatchComponent {
   }
 
   getMe() {
+    if (!AuthService.loggedIn()) return;
     this.userService.getCurrentUser().subscribe(data => {
       this.isAuthor = (this.instruction.user.id == data.id);
     })
@@ -98,19 +112,101 @@ export class InstructionWatchComponent {
     return "http://res.cloudinary.com/libraryofinstructions/image/upload/" + img;
   }
 
-  generatePdf() {
-    let doc = new jsPDF();
-    let specialElementHandlers = {
-      '#editor': function(element, renderer){
-        return true;
-      }
-    };
-    doc.fromHTML($('section').get(0), 15, 15, {
-      'width': 170,
-      'elementHandlers': specialElementHandlers
-    }, function () {
-      doc.save('saveInCallback.pdf');
+  async genPdf() {
+    let pdfService = new PdfmakeService();
+    pdfService.configureStyles({
+      header: {fontSize: 30, bold: true},
+      stepName: {fontSize: 18, alignment: 'center'},
+      text: {fontSize: 14}
     });
+    pdfService.addText(this.instruction.name, 'header');
+
+    this.adStep(this.copySteps(), pdfService);
   }
 
+  copySteps(): Step[] {
+    let steps = [];
+    for (let step of this.instruction.steps) {
+      let newStep = new Step();
+      let parts = [];
+      let newPart = new Part();
+      newPart.type = "TYPE_NAME";
+      newPart.data = step.name;
+      parts.push(newPart);
+      for (let part of step.parts) {
+        let newPart = new Part();
+        newPart.id = part.id;
+        newPart.type = part.type;
+        newPart.data = part.data;
+        parts.push(newPart);
+      }
+      newStep.parts = parts;
+      newStep.id = step.id;
+      steps.push(newStep);
+    }
+    return steps;
+  }
+
+  adStep(steps: Step[], pdfService: PdfmakeService) {
+    if (steps == undefined || steps.length == 0) {
+      pdfService.open()
+      return
+    }
+    if (steps[0].parts == undefined || steps[0].parts.length == 0) {
+      steps.shift()
+      this.adStep(steps, pdfService)
+      return
+    }
+    this.addPart(steps, pdfService, steps[0].parts.shift());
+  }
+
+  addPart(steps: Step[], pdfService: PdfmakeService, part: Part) {
+    switch (part.type) {
+      case "TYPE_NAME":
+        this.addStepName(steps, pdfService, part.data);
+        break;
+      case "TYPE_IMAGE":
+        this.addImage(steps, pdfService, part.data);
+        break;
+      case "TYPE_TEXT":
+        this.addText(steps, pdfService, part.id);
+        break;
+      case "TYPE_VIDEO":
+        this.addVideo(steps, pdfService, part.data);
+        break;
+      default:
+        alert("Unknown part type");
+    }
+  }
+
+  addImage(steps: Step[], pdfService: PdfmakeService, name: string) {
+    var image = new Image();
+    let newThis = this;
+    image.setAttribute('crossOrigin', 'anonymous');
+    image.src = this.makeLinkToImg(name);
+    image.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      let data = canvas.toDataURL('image/png');
+      pdfService.docDefinition.content.push({image: data, width: 500});
+      newThis.adStep(steps, pdfService);
+    };
+  }
+
+  addText(steps: Step[], pdfService: PdfmakeService, id: number) {
+    pdfService.addText($('#part' + id + ' markdown')["0"].innerText, 'text');
+    this.adStep(steps, pdfService);
+  }
+
+  addStepName(steps: Step[], pdfService: PdfmakeService, name: string) {
+    pdfService.addText(name, 'stepName');
+    this.adStep(steps, pdfService);
+  }
+
+  addVideo(steps: Step[], pdfService: PdfmakeService, key: string) {
+    pdfService.addText("Link to video: https://www.youtube.com/watch?v=" + key, 'text');
+    this.adStep(steps, pdfService);
+  }
 }

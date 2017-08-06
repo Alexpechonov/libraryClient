@@ -64,6 +64,14 @@
     <li class="hoverable" *ngIf="!isLoggedIn"><a (click)="login()">{{"LOGIN" | translate}}</a></li>
     <!--logout (should be the last!)-->
 
+    <!--Search-->
+    <li>
+      <div class="input-field">
+        <input id="search" type="search" required [(ngModel)]="searchData" (keyup)="search($event)">
+        <label for="search"><i class="material-icons">search</i></label>
+      </div>
+    </li>
+
     <!--Admin users-->
     <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/users']">{{"USERS" | translate}}</a></li>
 

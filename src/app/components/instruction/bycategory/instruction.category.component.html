@@ -1,0 +1,4 @@
+<div class="container" *ngIf="ready">
+  <h3>{{"SEARCH_BY_CATEGORY" | translate}}: {{category.name}}</h3>
+</div>
+<instruction-module [instructions]="instructions" [withSort]="true"></instruction-module>

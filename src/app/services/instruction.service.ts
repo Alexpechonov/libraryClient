@@ -36,8 +36,20 @@ export class InstructionService {
     return this.http.get(`${openServiceEndpoint}/instruction`).map((response: Response) => response.json());
   }
 
+  getByCreationDate(count: number) {
+    return this.http.get(`${openServiceEndpoint}/instruction/creationDate/` + count).map((response: Response) => response.json());
+  }
+
+  getPopular(count: number) {
+    return this.http.get(`${openServiceEndpoint}/instruction/popular/` + count).map((response: Response) => response.json());
+  }
+
   getAllByUser(userId: number) {
     return this.http.get(`${openServiceEndpoint}/instruction/user/` + userId).map((response: Response) => response.json());
+  }
+
+  getAllByCategory(categoryId: number) {
+    return this.http.get(`${openServiceEndpoint}/instruction/category/` + categoryId).map((response: Response) => response.json());
   }
 
   getAllByTag(tagId: number) {

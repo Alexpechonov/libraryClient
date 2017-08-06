@@ -1,24 +1,32 @@
 <div class="wrapper">
   <section id="container">
     <div class="center-align">
-      <a class="waves-effect waves-light btn green" (click)="generatePdf()">{{"EXPORT_PDF" | translate}}</a>
+      <a class="waves-effect waves-light btn green" (click)="genPdf()">{{"EXPORT_PDF" | translate}}</a>
     </div>
     <div class="center-align">
       <a *ngIf="isAuthor || isAdmin" class="waves-effect waves-light btn green"
          [routerLink]="['../../update/', instruction.id]">{{"EDITING" | translate}}</a>
     </div>
     <div id="update-instruction-page" class="section">
-      <div id="update-instruction-page-content" class="row">
+      <div class="center pointer" [routerLink]="['/profile/', instruction.user.id]">
+        <p class="caption" style="color: blue">{{"AUTHOR" | translate}}:</p>
+        {{instruction.user.firstName}} {{instruction.user.lastName}}
+      </div>
+      <div class="row">
         <div class="label col s12 m8">
+          <p class="caption" style="color: blue">{{"INSTRUCTION_NAME" | translate}}:</p>
           {{instruction.name}}
         </div>
-        <div class="label col s12 m4">
+        <div class="pointer label col s12 m4" [routerLink]="['/instruction/category', instruction.category.id]">
+          <p class="caption" style="color: blue">{{"INSTRUCTION_CATEGORY" | translate}}:</p>
           {{instruction.category.name}}
         </div>
       </div>
       <div class="row">
         <div id="tags" class="col s12 m8">
-          <div class="chip" *ngFor="let tag of this.instruction.tags">{{tag.name}}</div>
+          <div class="chip" *ngFor="let tag of this.instruction.tags"
+               [routerLink]="['/instruction/tag/', tag.id]"> {{tag.name}}
+          </div>
         </div>
         <div class="col s12 m4">
           <rating *ngIf="this.instruction" [instructionId]="this.instruction.id"></rating>
@@ -36,7 +44,7 @@
           <div class="collapsible-body">
             <ul class="collection">
               <li class="collection-item" *ngFor="let part of step.parts; let i = index">
-                <div class="row">
+                <div class="row" id="part{{part.id}}">
                   <markdown *ngIf="part.type == 'TYPE_TEXT'" class="label">{{part.data}}</markdown>
 
                   <div *ngIf="part.type == 'TYPE_IMAGE'">
@@ -62,8 +70,8 @@
                         <i class="large material-icons">filter_3</i>
                       </a>
                     </div>
-                    <div class="center col s12 m8">
-                      <img width="700" [src]="makeLinkToImg(part.data)">
+                    <div class="image center col s12 m8">
+                      <img id="img{{part.id}}" width="700" [src]="makeLinkToImg(part.data)">
                     </div>
                   </div>
 
@@ -82,7 +90,7 @@
                             data-length="5"></textarea>
                   <label for="comment" data-error="max length 5000 symbols">Comment</label>
                 </div>
-                <div class="col s4 m2">
+                <div id="create_comment" class="col s4 m2">
                   <button class="btn btn-primary" (click)="createComment(comment, i)">
                     <i class="material-icons">send</i>
                   </button>
@@ -97,15 +105,15 @@
                     </div>
                     <md-card-title style="font-size: 20px">
                       {{comment.user.firstName}}
-                      <div [hidden]="!isAdmin">
-                        <a class="waves-effect waves-light btn-large blue"
-                           (click)="deleteComment(comment, i)">
-                          <i class="large material-icons">delete</i>
-                        </a>
-                      </div>
                     </md-card-title>
                   </md-card-header>
                   <md-card-content>
+                    <div [hidden]="!isAdmin">
+                      <a class="waves-effect waves-light btn-large blue"
+                         (click)="deleteComment(comment, i)">
+                        <i class="large material-icons">delete</i>
+                      </a>
+                    </div>
                     <div *ngIf="!comment.isEdit" style="padding: 10px 25px">
                       {{comment.text}}
                     </div>
@@ -119,10 +127,3 @@
     </div>
   </section>
 </div>
-
-<!--<div>-->
-<!--<a class="waves-effect waves-light btn-floating btn-large yellow tooltipped"-->
-<!--data-position="right" data-delay="50" data-tooltip="I am a tooltip">-->
-<!--<i class="large material-icons">mode_edit</i>-->
-<!--</a>-->
-<!--</div>-->

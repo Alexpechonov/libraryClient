@@ -29,10 +29,17 @@ export class AdminUsersComponent {
   }
 
   updateEnabled(user: User, enabled) {
+    let index = this.users.findIndex(obj => obj.id == user.id);
     user.enabled = enabled.checked;
     this.userService.update(user).subscribe(
-      data => this.getAll()
+      data => this.getUpdatedUser(index)
     );
+  }
+
+  getUpdatedUser(index: number) {
+    this.userService.getById(this.users[index].id).subscribe(data => {
+      this.users[index] = data;
+    })
   }
 
   getAll() {

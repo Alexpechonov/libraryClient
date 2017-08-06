@@ -1,0 +1,14 @@
+md-card {
+  background: white;
+  color: black;
+}
+
+md-card-title {
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+div.link {
+  cursor: pointer;
+  color: blue;
+}

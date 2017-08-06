@@ -41,6 +41,7 @@ export class UserService {
     user.lastName = this.user.lastName;
     user.about = this.user.about;
     user.role = this.user.role;
+    user.medals = this.user.medals;
     return user;
   }
 

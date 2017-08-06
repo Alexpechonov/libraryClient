@@ -2,6 +2,37 @@
   height: 10px;
 }
 
+.image {
+  padding-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+ .delimeter{
+   display: none;
+ }
+}
+
 .edit {
   color: #26a69a !important;
+}
+
+div.chip {
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+md-card {
+  background: white;
+  color: black;
+}
+
+div#create_comment {
+  padding-bottom: 20px;
+}
+
+img {
+  max-width: 100%;
 }

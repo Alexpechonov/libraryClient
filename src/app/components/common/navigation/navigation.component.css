@@ -11,6 +11,11 @@
   color: black;
 }
 
+input#search {
+  padding: 0px 20px 0px 20px;
+  width: 210px;
+}
+
 a#name {
   color: #000000;
 }
@@ -58,6 +63,9 @@ cl-image {
 @media only screen and (min-width: 993px) {
   .collapsible-header {
     padding: 0 32px;
+  }
+  input#search {
+    width: 310px;
   }
 }
 

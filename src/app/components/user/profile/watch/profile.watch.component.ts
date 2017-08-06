@@ -2,6 +2,8 @@ import {Component} from "@angular/core";
 import {User} from "../../../../entities/user";
 import {Router, ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../../services/user.service";
+import {Instruction} from "../../../../entities/instruction";
+import {InstructionService} from "../../../../services/instruction.service";
 
 @Component({
   selector: 'watch-profile',
@@ -10,8 +12,10 @@ import {UserService} from "../../../../services/user.service";
 })
 export class WatchProfileComponent {
   user: User = new User;
+  instructions: Instruction[] = [];
 
-  constructor(private userService: UserService,
+  constructor(private instructionService: InstructionService,
+              private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
     this.takeParamFromRoute();
@@ -20,14 +24,18 @@ export class WatchProfileComponent {
   takeParamFromRoute() {
     this.route.params.subscribe(params => {
       this.userService.getById(params['id']).subscribe(data => {
-        if (data.id == this.userService.getAuthUser().id) {
-          this.router.navigate(['profile/me']);
-        }
         this.user = data;
+        this.getInstructions();
       }, error => {
         this.router.navigate(['404']);
       });
     });
+  }
+
+  getInstructions() {
+    this.instructionService.getAllByUser(this.user.id).subscribe(data => {
+      this.instructions = data;
+    })
   }
 
   getImage() {

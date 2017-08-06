@@ -10,6 +10,8 @@ export class Instruction {
   category: Category;
   steps: Step[];
   tags: Tag[];
+  creationDate: string;
+  lastModifiedDate: string;
 
   constructor() {
     this.steps = [];

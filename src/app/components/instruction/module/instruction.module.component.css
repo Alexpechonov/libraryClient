@@ -6,9 +6,19 @@
 .gridOfCards .card {
   margin-right: 1%;
   margin-bottom: 1%;
-  max-width: 250px;
-  min-width: 250px;
+  max-width: 400px;
+  min-width: 400px;
   display: inline-block;
+}
+
+@media only screen and (max-width: 450px) {
+  .gridOfCards .card {
+    margin-right: 1%;
+    margin-bottom: 1%;
+    max-width: 300px;
+    min-width: 300px;
+    display: inline-block;
+  }
 }
 
 .card span {
@@ -18,4 +28,7 @@
 
 div#sort {
   max-width: 500px;
+}
+span.card-title {
+  white-space: nowrap;
 }

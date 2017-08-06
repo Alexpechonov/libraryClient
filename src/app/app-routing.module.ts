@@ -13,6 +13,8 @@ import {AdminGuard} from "./guards/admin.guard";
 import {AdminUsersComponent} from "./components/user/admin/users/admin.users";
 import {AdminManageComponent} from "./components/user/admin/management/admin.manage";
 import {InstructionByTagComponent} from "./components/instruction/bytag/instruction.bytag.component";
+import {InstructionCategoryComponent} from "./components/instruction/bycategory/instruction.category.component";
+import {SearchComponent} from "./components/common/search/search.component";
 
 const routes: Routes = [
 
@@ -25,6 +27,8 @@ const routes: Routes = [
   {path: 'admin/users', component: AdminUsersComponent, canActivate: [AdminGuard]},
   {path: 'admin/manage', component: AdminManageComponent, canActivate: [AdminGuard]},
   {path: 'instruction/tag/:id', component: InstructionByTagComponent},
+  {path: 'instruction/category/:id', component: InstructionCategoryComponent},
+  {path: 'search', component: SearchComponent},
 
   {path: 'home', redirectTo:''},
   {path: '**', redirectTo: '404'}

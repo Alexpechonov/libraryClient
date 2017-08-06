@@ -52,6 +52,11 @@ import {AdminManageComponent} from "./components/user/admin/management/admin.man
 import {TagCloudModule} from "angular-tag-cloud-module";
 import {InstructionByTagComponent} from "./components/instruction/bytag/instruction.bytag.component";
 import {TagModuleComponent} from "./components/tag/module/tag.module.component";
+import {InstructionCategoryComponent} from "./components/instruction/bycategory/instruction.category.component";
+import {SearchService} from "./services/search.service";
+import {SearchComponent} from "./components/common/search/search.component";
+import {MedalModuleComponent} from "./components/medal/module/medal.module.component";
+import {PdfmakeModule, PdfmakeService} from "ng-pdf-make";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -74,7 +79,10 @@ export function HttpLoaderFactory(http: Http) {
     RatingComponent,
     AdminManageComponent,
     InstructionByTagComponent,
-    TagModuleComponent
+    TagModuleComponent,
+    InstructionCategoryComponent,
+    SearchComponent,
+    MedalModuleComponent,
   ],
   imports: [
     DndModule.forRoot(),
@@ -91,6 +99,7 @@ export function HttpLoaderFactory(http: Http) {
     FormsModule,
     HttpModule,
     MaterializeModule,
+    // PdfmakeModule,
     [MaterialModule.forRoot()],
     BrowserAnimationsModule,
     Ng2CloudinaryModule,
@@ -107,6 +116,7 @@ export function HttpLoaderFactory(http: Http) {
     })
   ],
   providers: [
+    PdfmakeService,
     UserService,
     {
       provide: AuthHttp,
@@ -121,6 +131,7 @@ export function HttpLoaderFactory(http: Http) {
     CommentService,
     RatingService,
     MedalService,
+    SearchService,
     NgSpinningPreloader,
     AuthGuard,
     AdminGuard

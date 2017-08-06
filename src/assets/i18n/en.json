@@ -31,5 +31,12 @@
   "MANAGEMENT": "Management",
   "CREATE_NEW_CATEGORY": "Create category",
   "CATEGORIES": "Categories",
-  "SEARCH_BY_TAG": "Search by tag"
+  "SEARCH_BY_TAG": "Search by tag",
+  "SEARCH_BY_CATEGORY": "Search by category",
+  "LAST_CREATED": "Last created instructions",
+  "INSTRUCTIONS": "Instructions",
+  "INSTRUCTION_NAME": "Instruction name",
+  "INSTRUCTION_CATEGORY": "Instruction category",
+  "AUTHOR": "Author",
+  "MOST_POPULAR": "Most popular"
 }

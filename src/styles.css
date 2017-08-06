@@ -1,15 +1,7 @@
 @import '~@angular/material/core/theming/prebuilt/purple-green.css';
-@import "../node_modules/materialize-css/dist/css/materialize.min.css";
 @import "../src/app/components/common/preloader/style/ng-spinning-preloader.css";
-@import '../node_modules/ngx-bar-rating/themes/br-default-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-bootstrap-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-fontawesome-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-fontawesome-o-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-horizontal-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-vertical-theme.css';
+@import "../node_modules/materialize-css/dist/css/materialize.min.css";
 @import '../node_modules/ngx-bar-rating/themes/br-stars-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-movie-theme.css';
-@import '../node_modules/ngx-bar-rating/themes/br-square-theme.css';
 
 body {
   margin: 0;
@@ -93,4 +85,34 @@ body {
 
 .has-error label::before {
   border-color: #f44336 !important;
+}
+
+.teaser {
+  letter-spacing: 3px;
+  font-size: 24px;
+  margin-bottom: 40px;
+  font-family: 'ProximaNova Semibold',sans-serif;
+  text-align: center;
+  margin-top: 20px;
+  text-transform: uppercase;
+  position: relative;
+  line-height: 18px;
+}
+
+.teaser::before {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  top: 8px;
+  left: 0;
+  background-color: #dedede;
+}
+
+.teaser span {
+  display: inline-block;
+  padding: 0 18px 0 20px;
+  background-color: #fff;
+  position: relative;
+  font-weight: 400;
 }

@@ -25,6 +25,7 @@ export class InstructionUpdateComponent implements OnInit {
   tags: Tag[] = [];
   user: User = new User();
   categories: Category[] = [];
+  categoriesSelect: string[] = [];
 
   ngOnInit() {
     this.takeParamFromRoute();

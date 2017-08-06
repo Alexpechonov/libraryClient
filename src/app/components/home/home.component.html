@@ -1,6 +1,21 @@
-<div class="container">
-  <div style="display: table;
-  margin: 0 auto;">
+<div class="row">
+  <div id="last">
+    <h2 class="teaser">
+      <span>{{"LAST_CREATED" | translate}}</span>
+    </h2>
+    <div style="background-color: lightgrey">
+      <instruction-module [instructions]="this.lastInstructions" [withSort]="false"></instruction-module>
+    </div>
+  </div>
+  <div id="popular">
+    <h2 class="teaser">
+      <span>{{"MOST_POPULAR" | translate}}</span>
+    </h2>
+    <div style="background-color: lightgrey">
+      <instruction-module [instructions]="this.popularInstructions" [withSort]="false"></instruction-module>
+    </div>
+  </div>
+  <div id="tag_cloud">
     <tag-module></tag-module>
   </div>
 </div>

@@ -3,6 +3,9 @@ import {User} from "../../../entities/user";
 import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import {TranslateService} from "@ngx-translate/core";
+import {SearchService} from "../../../services/search.service";
+import {SearchResult} from "../../../entities/searchResult";
+import {Router} from "@angular/router";
 
 declare var $: any;
 
@@ -17,10 +20,13 @@ export class NavigationComponent implements OnInit {
   isLoggedIn: boolean;
   user: User = new User();
   isAdmin: boolean;
+  searchResults: SearchResult[] = [];
+  searchData: string = "";
 
   constructor(private authService: AuthService,
               private userService: UserService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private router: Router) {
     this.initLanguage();
     this.user = userService.getAuthUser();
     this.isAdmin = AuthService.isAdmin();
@@ -44,6 +50,11 @@ export class NavigationComponent implements OnInit {
     });
   }
 
+  search(event) {
+    if (this.searchData == "" || event.keyCode != 13) return;
+    $('.button-collapse').sideNav('hide');
+    this.router.navigate(['/search', {data: this.searchData}]);
+  }
 
 
   private initLanguage() {

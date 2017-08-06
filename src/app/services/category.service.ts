@@ -13,23 +13,27 @@ export class CategoryService {
               private authHttp: AuthHttp) {
   }
 
-  public getAll() {
+  getById(id: number) {
+    return this.http.get(`${openServiceEndpoint}/category/` + id).map((response: Response) => response.json());
+  }
+
+  getAll() {
     return this.http.get(`${openServiceEndpoint}/category`).map((response: Response) => response.json());
   }
 
-  public create(name: string) {
+  create(name: string) {
     let category = new Category();
     category.name = name;
     return this.authHttp.post(`${protectedServiceEndpoint}/category`, category)
       .map((response: Response) => response.json())
   }
 
-  public update(category: Category) {
+  update(category: Category) {
     return this.authHttp.put(`${protectedServiceEndpoint}/category`, category)
       .map((response: Response) => response.json())
   }
 
-  public delete(categoryId: number) {
+  delete(categoryId: number) {
     return this.authHttp.delete(`${protectedServiceEndpoint}/category/${categoryId}`)
       .map((response: Response) => response);
   }

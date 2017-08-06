@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="input-field" style="display: flex">
+    <input id="search" type="search" required [(ngModel)]="searchData" (keyup)="search($event)">
+    <div class="btn" (click)="getResult()">
+      <span>Search</span>
+    </div>
+  </div>
+
+  <ul id="instructions">
+    <li class="flex-item" *ngFor="let result of searchResults | paginate: { itemsPerPage: 10, currentPage: p }">
+      <md-card>
+        <md-card-header>
+          <div class="row" style="width: 100%;padding-right: 15px">
+            <div style="float: right;color: darkgrey">{{result.instruction.lastModifiedDate | date:'medium'}}</div>
+          </div>
+          <md-card-title>
+            <div id="name" class="link" [routerLink]="['/instruction/watch/', result.instruction.id]">
+              {{result.instruction.name}}
+            </div>
+            <div id="author" class="link" [routerLink]="['/profile/', result.instruction.user.id]">
+              {{result.instruction.user.firstName}} {{result.instruction.user.lastName}}
+            </div>
+          </md-card-title>
+        </md-card-header>
+        <md-card-content>
+          <div style="padding: 10px 25px">
+            {{result.data}}
+          </div>
+        </md-card-content>
+      </md-card>
+    </li>
+  </ul>
+  <pagination-controls class="center" (pageChange)="p = $event"></pagination-controls>
+</div>

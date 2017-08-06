@@ -31,5 +31,12 @@
   "MANAGEMENT": "Администрирование",
   "CREATE_NEW_CATEGORY": "Добавить категорию",
   "CATEGORIES": "Категории",
-  "SEARCH_BY_TAG": "Поиск по тегу"
+  "SEARCH_BY_TAG": "Поиск по тегу",
+  "SEARCH_BY_CATEGORY": "Поиск по категории",
+  "LAST_CREATED": "Последние созданные инструкции",
+  "INSTRUCTIONS": "Инструкции",
+  "INSTRUCTION_NAME": "Название инструкции",
+  "INSTRUCTION_CATEGORY": "Категория инструкции",
+  "AUTHOR": "Автор",
+  "MOST_POPULAR": "Самые популярные"
 }
