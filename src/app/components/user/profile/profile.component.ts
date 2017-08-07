@@ -29,13 +29,14 @@ export class ProfileComponent implements OnInit {
     userService.authData.subscribe(data => {
       this.user = data;
       this.getInstructions();
-    })
+    });
     this.getInstructions();
     this.configUploader();
     window.scrollTo(0,0);
   }
 
   getInstructions() {
+    if (!this.user.id) return;
     this.instructionService.getAllByUser(this.user.id).subscribe(data => {
       this.instructions = data;
     })

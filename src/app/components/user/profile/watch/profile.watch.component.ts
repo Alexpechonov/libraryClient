@@ -33,6 +33,7 @@ export class WatchProfileComponent {
   }
 
   getInstructions() {
+    if (!this.user.id) return;
     this.instructionService.getAllByUser(this.user.id).subscribe(data => {
       this.instructions = data;
     })

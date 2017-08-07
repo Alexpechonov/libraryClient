@@ -19,7 +19,9 @@ export class InstructionModuleComponent implements OnChanges {
 
   sortTypes = [{id: 1, name: "name"},
     {id: 2, name: "username"},
-    {id: 3, name: "category"}];
+    {id: 3, name: "category"},
+    {id: 4, name: "creation date"},
+    {id: 5, name: "last modified date"}];
   currentSort = {id: this.sortTypes[0].id, name: this.sortTypes[0].name};
 
   constructor() {
@@ -50,6 +52,12 @@ export class InstructionModuleComponent implements OnChanges {
       case "category":
         this.sortByCategory();
         break;
+      case "creation date":
+        this.sortByCreatingDate();
+        break;
+      case "last modified date":
+        this.sortByLastModifiedDate();
+        break;
       default:
         alert("Unknown sort type");
     }
@@ -76,6 +84,22 @@ export class InstructionModuleComponent implements OnChanges {
       if (instructiona.category.name == null) { return -1; }
       if (instructionb.category.name == null) { return 1; }
       return instructiona.category.name.localeCompare(instructionb.category.name);
+    });
+  }
+
+  sortByCreatingDate() {
+    this.instructions.sort(function (instructiona: Instruction, instructionb: Instruction) {
+      if (instructiona.creationDate < instructionb.creationDate) { return 1; }
+      if (instructiona.creationDate > instructionb.creationDate) { return -1; }
+      return 0;
+    });
+  }
+
+  sortByLastModifiedDate() {
+    this.instructions.sort(function (instructiona: Instruction, instructionb: Instruction) {
+      if (instructiona.lastModifiedDate < instructionb.lastModifiedDate) { return 1; }
+      if (instructiona.lastModifiedDate > instructionb.lastModifiedDate) { return -1; }
+      return 0;
     });
   }
 }
