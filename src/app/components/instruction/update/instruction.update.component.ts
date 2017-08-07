@@ -40,8 +40,12 @@ export class InstructionUpdateComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.user = userService.getAuthUser();
-    userService.authData.subscribe(item => {
+    this.initUser();
+  }
+
+  initUser() {
+    this.user = this.userService.getAuthUser();
+    this.userService.authData.subscribe(item => {
       this.user = item;
     });
   }

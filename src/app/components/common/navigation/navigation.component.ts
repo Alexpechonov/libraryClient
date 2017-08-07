@@ -28,14 +28,18 @@ export class NavigationComponent implements OnInit {
               private translate: TranslateService,
               private router: Router) {
     this.initLanguage();
-    this.user = userService.getAuthUser();
+    this.initUser();
+  }
+
+  initUser() {
+    this.user = this.userService.getAuthUser();
     this.isAdmin = AuthService.isAdmin();
-    userService.authData.subscribe(item => {
+    this.userService.authData.subscribe(item => {
       this.user = item;
       this.isAdmin = AuthService.isAdmin();
     });
     this.isLoggedIn = AuthService.loggedIn();
-    authService.isLoggedIn.subscribe(item => {
+    this.authService.isLoggedIn.subscribe(item => {
       this.isLoggedIn = item;
       this.isAdmin = AuthService.isAdmin();
     });

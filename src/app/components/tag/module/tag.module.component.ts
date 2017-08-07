@@ -1,9 +1,6 @@
-import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {Instruction} from "../../../entities/instruction";
-import {CloudOptions, CloudData} from "angular-tag-cloud-module";
+import {Component} from "@angular/core";
 import {Tag} from "../../../entities/tag";
 import {TagService} from "../../../services/tag.service";
-import {Observable} from "rxjs";
 
 declare var TagCanvas: any;
 declare var $: any;

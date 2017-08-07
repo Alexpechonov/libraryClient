@@ -25,8 +25,12 @@ export class RatingComponent implements OnChanges {
 
   constructor(private ratingService: RatingService,
               private authService: AuthService) {
+    this.getAuth();
+  }
+
+  getAuth() {
     this.isLoggedIn = AuthService.loggedIn();
-    authService.isLoggedIn.subscribe(item => {
+    this.authService.isLoggedIn.subscribe(item => {
       this.isLoggedIn = item;
     });
   }
