@@ -16,6 +16,7 @@ import {InstructionByTagComponent} from "./components/instruction/bytag/instruct
 import {InstructionCategoryComponent} from "./components/instruction/bycategory/instruction.category.component";
 import {SearchComponent} from "./components/common/search/search.component";
 import {UsersComponent} from "./components/user/component/users.component";
+import {InstructionComponent} from "./components/instruction/component/instruction.component";
 
 const routes: Routes = [
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'admin/manage', component: AdminManageComponent, canActivate: [AdminGuard]},
   {path: 'instruction/tag/:id', component: InstructionByTagComponent},
   {path: 'instruction/category/:id', component: InstructionCategoryComponent},
+  {path: 'instructions', component: InstructionComponent},
   {path: 'search', component: SearchComponent},
   {path: 'users', component: UsersComponent},
 

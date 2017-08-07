@@ -1,10 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnChanges, SimpleChanges} from "@angular/core";
 import {User} from "../../../entities/user";
 import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import {TranslateService} from "@ngx-translate/core";
-import {SearchService} from "../../../services/search.service";
-import {SearchResult} from "../../../entities/searchResult";
 import {Router} from "@angular/router";
 
 declare var $: any;
@@ -28,7 +26,6 @@ export class NavigationComponent implements OnInit {
               private router: Router) {
     this.initLanguage();
     this.initUser();
-    this.configureCollapsable();
   }
 
   initUser() {
@@ -55,12 +52,6 @@ export class NavigationComponent implements OnInit {
       $('.button-collapse').sideNav('hide');
       $('.button-collapse').sideNav('destroy');
       NavigationComponent.setSideNav($(window).width());
-    });
-  }
-
-  configureCollapsable() {
-    $(document).ready(function () {
-      $(".collapsible").collapsible();
     });
   }
 

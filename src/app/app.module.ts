@@ -58,6 +58,7 @@ import {SearchComponent} from "./components/common/search/search.component";
 import {MedalModuleComponent} from "./components/medal/module/medal.module.component";
 import {PdfmakeModule, PdfmakeService} from "ng-pdf-make";
 import {UsersComponent} from "./components/user/component/users.component";
+import {InstructionComponent} from "./components/instruction/component/instruction.component";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -84,7 +85,8 @@ export function HttpLoaderFactory(http: Http) {
     InstructionCategoryComponent,
     SearchComponent,
     MedalModuleComponent,
-    UsersComponent
+    UsersComponent,
+    InstructionComponent
   ],
   imports: [
     DndModule.forRoot(),
