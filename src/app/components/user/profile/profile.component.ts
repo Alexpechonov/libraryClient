@@ -25,15 +25,22 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private instructionService: InstructionService,
               private router: Router) {
+    this.user = userService.getAuthUser();
     userService.authData.subscribe(data => {
       this.user = data;
+      this.getInstructions();
     })
-    instructionService.getAll().subscribe(data => {
-      this.instructions = data;
-    })
+    this.getInstructions();
     this.configUploader();
     window.scrollTo(0,0);
   }
+
+  getInstructions() {
+    this.instructionService.getAllByUser(this.user.id).subscribe(data => {
+      this.instructions = data;
+    })
+  }
+
 
   configUploader() {
     this.uploader.onAfterAddingFile = (item: any) => {
@@ -60,6 +67,7 @@ export class ProfileComponent implements OnInit {
     let newInst = new Instruction();
     newInst.user = this.userService.getAuthUser();
     this.instructionService.create(newInst).subscribe(data => {
+      this.userService.updateUser();
       this.router.navigate(['instruction/update',data.id]);
     });
   }

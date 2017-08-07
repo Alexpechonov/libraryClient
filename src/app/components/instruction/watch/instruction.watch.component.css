@@ -20,6 +20,10 @@ div.chip {
   cursor: pointer;
 }
 
+#video iframe {
+  max-width: 100%;
+}
+
 .pointer {
   cursor: pointer;
 }

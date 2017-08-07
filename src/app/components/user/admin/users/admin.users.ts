@@ -75,15 +75,17 @@ export class AdminUsersComponent {
   }
 
   addMedal(userId: number, medal: Medal) {
+    let index = this.users.findIndex(obj => obj.id == userId);
     this.medalService.addToUser(medal, userId).subscribe(data => {
-      this.getAll()
+      this.getUpdatedUser(index)
       Materialize.toast('Medal added', 3000, 'rounded')
     })
   }
 
   removeMedal(userId: number, medal: Medal) {
+    let index = this.users.findIndex(obj => obj.id == userId);
     this.medalService.deleteFromUser(medal, userId).subscribe(data => {
-      this.getAll()
+      this.getUpdatedUser(index)
       Materialize.toast('Medal deleted', 3000, 'rounded')
     })
   }

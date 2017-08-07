@@ -14,11 +14,13 @@
             <div style="float: right;color: darkgrey">{{result.instruction.lastModifiedDate | date:'medium'}}</div>
           </div>
           <md-card-title>
-            <div id="name" class="link" [routerLink]="['/instruction/watch/', result.instruction.id]">
-              {{result.instruction.name}}
+            <div id="name">
+              <a class="pointer" [routerLink]="['/instruction/watch/', result.instruction.id]">
+                {{result.instruction.name}}</a>
             </div>
-            <div id="author" class="link" [routerLink]="['/profile/', result.instruction.user.id]">
-              {{result.instruction.user.firstName}} {{result.instruction.user.lastName}}
+            <div id="author" class="link">
+              <a class="pointer" [routerLink]="['/profile/', result.instruction.user.id]">
+                {{result.instruction.user.firstName}} {{result.instruction.user.lastName}}</a>
             </div>
           </md-card-title>
         </md-card-header>

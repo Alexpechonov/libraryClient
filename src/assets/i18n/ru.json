@@ -9,7 +9,7 @@
   "CREATEINSTRUCTION": "Создать инструкцию",
   "INSTRUCTIONTITLE": "Название инструкции",
   "NEWPARTIMAGE": "Загрузить изображение",
-  "IMAGE_PLACEHOLDER": "Так же можно нажать или перетащить изображение сюда",
+  "IMAGE_PLACEHOLDER": "Так же можно нажать сюда",
   "STEP_NAME": "Название шага",
   "CREATE_NEW_TEXT": "Добавить блок текста",
   "CREATE_NEW_IMAGE": "Добавить блок с картинкой",
@@ -38,5 +38,6 @@
   "INSTRUCTION_NAME": "Название инструкции",
   "INSTRUCTION_CATEGORY": "Категория инструкции",
   "AUTHOR": "Автор",
-  "MOST_POPULAR": "Самые популярные"
+  "MOST_POPULAR": "Самые популярные",
+  "SEARCH": "Поиск по инструкциям"
 }

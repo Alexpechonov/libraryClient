@@ -4,6 +4,7 @@ import "rxjs/add/operator/map";
 import {Http, Response} from "@angular/http";
 import {AppSettings} from "./endpoint";
 import {AuthHttp, JwtHelper} from "angular2-jwt";
+import {AuthService} from "./auth.service";
 
 const protectedServiceEndpoint = AppSettings.protectedServiceEndpoint;
 const openServiceEndpoint = AppSettings.openServiceEndpoint;
@@ -23,6 +24,9 @@ export class UserService {
         }
       );
     }
+  }
+  updateUser() {
+    this.getCurrentUser().subscribe(data => this.updateAuthUser(data));
   }
 
   updateAuthUser(user: User) {

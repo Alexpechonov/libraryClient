@@ -3,29 +3,31 @@
     <div class="center-align">
       <a class="waves-effect waves-light btn green" (click)="genPdf()">{{"EXPORT_PDF" | translate}}</a>
     </div>
-    <div class="center-align">
+    <div class="center-align" style="padding-top: 5px">
       <a *ngIf="isAuthor || isAdmin" class="waves-effect waves-light btn green"
          [routerLink]="['../../update/', instruction.id]">{{"EDITING" | translate}}</a>
     </div>
     <div id="update-instruction-page" class="section">
-      <div class="center pointer" [routerLink]="['/profile/', instruction.user.id]">
-        <p class="caption" style="color: blue">{{"AUTHOR" | translate}}:</p>
-        {{instruction.user.firstName}} {{instruction.user.lastName}}
+      <div class="center pointer">
+        <p class="caption">{{"AUTHOR" | translate}}:</p>
+        <a class="pointer" [routerLink]="['/profile/', instruction.user.id]">{{instruction.user.firstName}}
+          {{instruction.user.lastName}}</a>
       </div>
       <div class="row">
         <div class="label col s12 m8">
-          <p class="caption" style="color: blue">{{"INSTRUCTION_NAME" | translate}}:</p>
+          <p class="caption">{{"INSTRUCTION_NAME" | translate}}:</p>
           {{instruction.name}}
         </div>
-        <div class="pointer label col s12 m4" [routerLink]="['/instruction/category', instruction.category.id]">
-          <p class="caption" style="color: blue">{{"INSTRUCTION_CATEGORY" | translate}}:</p>
-          {{instruction.category.name}}
+        <div class="label col s12 m4">
+          <p class="caption">{{"INSTRUCTION_CATEGORY" | translate}}:</p>
+          <a class="pointer" [routerLink]="['/instruction/category', instruction.category.id]">
+            {{instruction.category.name}}</a>
         </div>
       </div>
       <div class="row">
         <div id="tags" class="col s12 m8">
-          <div class="chip" *ngFor="let tag of this.instruction.tags"
-               [routerLink]="['/instruction/tag/', tag.id]"> {{tag.name}}
+          <div class="chip" *ngFor="let tag of this.instruction.tags">
+            <a class="pointer" [routerLink]="['/instruction/tag/', tag.id]">{{tag.name}}</a>
           </div>
         </div>
         <div class="col s12 m4">
@@ -76,7 +78,8 @@
                   </div>
 
                   <div *ngIf="part.type == 'TYPE_VIDEO'" class="center">
-                    <youtube-player [videoId]="part.data" [width]="640" [height]="480"
+                    <youtube-player id="video" [videoId]="part.data" [width]="getVideoWidth()"
+                                    [height]="getVideoHeight()"
                     ></youtube-player>
                   </div>
                 </div>
@@ -96,30 +99,34 @@
                   </button>
                 </div>
               </div>
-              <div class="flex-item" *ngFor="let comment of comments[i]; let j = index"
-                   id="comment{{comment.id}}">
-                <md-card>
-                  <md-card-header>
-                    <div class="row" style="width: 100%;padding-right: 15px">
-                      <div style="float: right;color: darkgrey">{{comment.creationDate | date:'medium'}}</div>
-                    </div>
-                    <md-card-title style="font-size: 20px">
-                      {{comment.user.firstName}}
-                    </md-card-title>
-                  </md-card-header>
-                  <md-card-content>
-                    <div [hidden]="!isAdmin">
-                      <a class="waves-effect waves-light btn-large blue"
-                         (click)="deleteComment(comment, i)">
-                        <i class="large material-icons">delete</i>
-                      </a>
-                    </div>
-                    <div *ngIf="!comment.isEdit" style="padding: 10px 25px">
-                      {{comment.text}}
-                    </div>
-                  </md-card-content>
-                </md-card>
-              </div>
+              <ul>
+                <li class="flex-item"
+                    *ngFor="let comment of this.comments[i] | paginate: { itemsPerPage: 5, currentPage: p[i], id: step.id }">
+                  <md-card>
+                    <md-card-header>
+                      <div class="row" style="width: 100%;padding-right: 15px">
+                        <div style="float: right;color: darkgrey">{{comment.creationDate | date:'medium'}}</div>
+                      </div>
+                      <md-card-title style="font-size: 20px">
+                        <a class="pointer" [routerLink]="['/profile/', comment.user.id]">{{comment.user.firstName}}</a>
+                      </md-card-title>
+                    </md-card-header>
+                    <md-card-content>
+                      <div [hidden]="!isAdmin">
+                        <a class="waves-effect waves-light btn-large blue"
+                           (click)="deleteComment(comment, i)">
+                          <i class="large material-icons">delete</i>
+                        </a>
+                      </div>
+                      <div style="padding: 10px 25px">
+                        {{comment.text}}
+                      </div>
+                    </md-card-content>
+                  </md-card>
+                </li>
+              </ul>
+              <div class="delimeter"></div>
+              <pagination-controls class="center" (pageChange)="p[i] = $event" [id]="step.id" autoHide="true"></pagination-controls>
             </div>
           </div>
         </li>

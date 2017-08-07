@@ -26,6 +26,7 @@ export class InstructionWatchComponent {
   isAdmin: boolean;
   isAuthor: boolean;
   auth: boolean;
+  p: number[] = [];
 
   constructor(private instructionService: InstructionService,
               private commentService: CommentService,
@@ -91,6 +92,7 @@ export class InstructionWatchComponent {
   createComment(text: string, stepNumber: number) {
     this.commentService.create(this.instruction.steps[stepNumber].id, text).subscribe(
       data => {
+        this.userService.updateUser();
         this.comments[stepNumber].push(data);
         this.comment = "";
       }
@@ -98,9 +100,8 @@ export class InstructionWatchComponent {
   }
 
   deleteComment(comment: Comment, position: number) {
-    this.commentService.delete(comment.id).subscribe(data => {
-      this.comments[position].splice(this.comments[position].indexOf(comment, 0), 1);
-    })
+    this.comments[position].splice(this.comments[position].indexOf(comment, 0), 1);
+    this.commentService.delete(comment.id).subscribe()
   }
 
   addFilter(filter: string, part: Part) {
@@ -121,7 +122,7 @@ export class InstructionWatchComponent {
     });
     pdfService.addText(this.instruction.name, 'header');
 
-    this.adStep(this.copySteps(), pdfService);
+    this.addStep(this.copySteps(), pdfService);
   }
 
   copySteps(): Step[] {
@@ -147,14 +148,14 @@ export class InstructionWatchComponent {
     return steps;
   }
 
-  adStep(steps: Step[], pdfService: PdfmakeService) {
+  addStep(steps: Step[], pdfService: PdfmakeService) {
     if (steps == undefined || steps.length == 0) {
       pdfService.open()
       return
     }
     if (steps[0].parts == undefined || steps[0].parts.length == 0) {
       steps.shift()
-      this.adStep(steps, pdfService)
+      this.addStep(steps, pdfService)
       return
     }
     this.addPart(steps, pdfService, steps[0].parts.shift());
@@ -190,23 +191,48 @@ export class InstructionWatchComponent {
       canvas.height = image.naturalHeight;
       canvas.getContext('2d').drawImage(image, 0, 0);
       let data = canvas.toDataURL('image/png');
+      InstructionWatchComponent.addLine(pdfService);
       pdfService.docDefinition.content.push({image: data, width: 500});
-      newThis.adStep(steps, pdfService);
+      InstructionWatchComponent.addLine(pdfService);
+      newThis.addStep(steps, pdfService);
     };
   }
 
   addText(steps: Step[], pdfService: PdfmakeService, id: number) {
     pdfService.addText($('#part' + id + ' markdown')["0"].innerText, 'text');
-    this.adStep(steps, pdfService);
+    this.addStep(steps, pdfService);
   }
 
   addStepName(steps: Step[], pdfService: PdfmakeService, name: string) {
     pdfService.addText(name, 'stepName');
-    this.adStep(steps, pdfService);
+    InstructionWatchComponent.addLine(pdfService);
+    this.addStep(steps, pdfService);
   }
 
   addVideo(steps: Step[], pdfService: PdfmakeService, key: string) {
-    pdfService.addText("Link to video: https://www.youtube.com/watch?v=" + key, 'text');
-    this.adStep(steps, pdfService);
+    pdfService.addText("Link to video: " + this.makeYoutubeLink(key), 'text');
+    InstructionWatchComponent.addLine(pdfService);
+    this.addStep(steps, pdfService);
+  }
+
+  makeYoutubeLink(key) {
+    return "https://www.youtube.com/watch?v=" + key;
+  }
+
+  static addLine(pdfService: PdfmakeService) {
+    pdfService.addText(" ", 'text');
+  }
+
+  getVideoWidth() {
+    let windowWidth = $(window).width();
+    if (windowWidth > 800) {
+      return 640;
+    } else {
+      return windowWidth * 0.8;
+    }
+  }
+
+  getVideoHeight() {
+    return this.getVideoWidth() * 0.75;
   }
 }

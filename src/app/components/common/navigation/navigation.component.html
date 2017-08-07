@@ -67,7 +67,8 @@
     <!--Search-->
     <li>
       <div class="input-field">
-        <input id="search" type="search" required [(ngModel)]="searchData" (keyup)="search($event)">
+        <input id="search" type="search" required [(ngModel)]="searchData"
+               (keyup)="search($event)" placeholder='{{"SEARCH" | translate}}'>
         <label for="search"><i class="material-icons">search</i></label>
       </div>
     </li>
