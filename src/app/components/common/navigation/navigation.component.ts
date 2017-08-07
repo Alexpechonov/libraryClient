@@ -20,7 +20,6 @@ export class NavigationComponent implements OnInit {
   isLoggedIn: boolean;
   user: User = new User();
   isAdmin: boolean;
-  searchResults: SearchResult[] = [];
   searchData: string = "";
 
   constructor(private authService: AuthService,
@@ -29,6 +28,7 @@ export class NavigationComponent implements OnInit {
               private router: Router) {
     this.initLanguage();
     this.initUser();
+    this.configureCollapsable();
   }
 
   initUser() {
@@ -46,11 +46,21 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.configureSideNav();
+  }
+
+  configureSideNav() {
     NavigationComponent.setSideNav($(window).width());
     $(window).resize(function () {
       $('.button-collapse').sideNav('hide');
       $('.button-collapse').sideNav('destroy');
       NavigationComponent.setSideNav($(window).width());
+    });
+  }
+
+  configureCollapsable() {
+    $(document).ready(function () {
+      $(".collapsible").collapsible();
     });
   }
 

@@ -39,5 +39,6 @@
   "INSTRUCTION_CATEGORY": "Instruction category",
   "AUTHOR": "Author",
   "MOST_POPULAR": "Most popular",
-  "SEARCH": "Search instruction"
+  "SEARCH": "Search instruction",
+  "ADMIN": "Admin"
 }

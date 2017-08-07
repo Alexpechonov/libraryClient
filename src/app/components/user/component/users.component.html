@@ -1,0 +1,21 @@
+<div class="gridOfCards" fxLayoutAlign="center" fxLayout="row" fxLayoutWrap="wrap"
+     infinite-scroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="100"
+     (scrolled)="addItems()">
+  <div class="card flex-item hoverable" *ngFor="let user of showedUsers">
+    <div class="card-image">
+      <div style="overflow: hidden;">
+        <div>
+          <img class="user_image" [src]="getImage(user.image)">
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <span class="card-title">{{user.firstName}} {{user.lastName}}</span>
+    </div>
+    <div class="card-action">
+      <a [routerLink]="['/profile/'+user.id]">More info</a>
+    </div>
+  </div>
+</div>

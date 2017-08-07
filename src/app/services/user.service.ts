@@ -68,7 +68,7 @@ export class UserService {
   }
 
   getAll() {
-    return this.authHttp.get(`${protectedServiceEndpoint}/user`).map((response: Response) => response.json());
+    return this.http.get(`${openServiceEndpoint}/user`).map((response: Response) => response.json());
   }
 
   update(user: User) {

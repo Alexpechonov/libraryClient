@@ -73,11 +73,24 @@
       </div>
     </li>
 
-    <!--Admin users-->
-    <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/users']">{{"USERS" | translate}}</a></li>
+    <!--Admin component-->
+    <li class="hoverable no-padding"  *ngIf="isAdmin">
+      <ul class="collapsible" data-collapsible="accordion">
+        <li class="bold">
+          <a class="collapsible-header waves-effect waves-cyan">{{"ADMIN" | translate}}</a>
+          <div class="collapsible-body" style="display: block;">
+            <ul>
+              <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/users']">{{"USERS" | translate}}</a></li>
+              <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/manage']">{{"MANAGEMENT" | translate}}</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
 
-    <!--Admin manage-->
-    <li class="hoverable" *ngIf="isAdmin"><a [routerLink]="['admin/manage']">{{"MANAGEMENT" | translate}}</a></li>
+    <!--Users-->
+    <li class="hoverable"><a [routerLink]="['users']">{{"USERS" | translate}}</a></li>
 
     <!--logout (should be the last!)-->
     <li class="hoverable" [hidden]="!isLoggedIn"><a (click)="logout()">{{"LOGOUT" | translate}}</a></li>

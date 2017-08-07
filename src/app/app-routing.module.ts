@@ -15,6 +15,7 @@ import {AdminManageComponent} from "./components/user/admin/management/admin.man
 import {InstructionByTagComponent} from "./components/instruction/bytag/instruction.bytag.component";
 import {InstructionCategoryComponent} from "./components/instruction/bycategory/instruction.category.component";
 import {SearchComponent} from "./components/common/search/search.component";
+import {UsersComponent} from "./components/user/component/users.component";
 
 const routes: Routes = [
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'instruction/tag/:id', component: InstructionByTagComponent},
   {path: 'instruction/category/:id', component: InstructionCategoryComponent},
   {path: 'search', component: SearchComponent},
+  {path: 'users', component: UsersComponent},
 
   {path: 'home', redirectTo:''},
   {path: '**', redirectTo: '404'}
